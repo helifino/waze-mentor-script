@@ -1,33 +1,28 @@
 // ==UserScript==
-// @name           WME URComments (Stable)
-// @description    This script is for replying to user requests the goal is to speed up and simplify the process. Thanks to Chat Jumper and URO+!
-// @namespace      RickZabel@gmail.com
+// @name           WME Mentor script (testing)
+// @description    This script is for replying to new editor questions - the goal is to speed up and simplify the process. Thanks to WMEMentor by Rick Zabel! Script suggested by ct13 & Wajo357
+// @namespace      ahelifino@gmail.com
 // @grant          none
 // @grant          GM_info
-// @version        1.5.7
+// @version        0.0.1
 // @match          https://editor-beta.waze.com/*editor/*
 // @match          https://www.waze.com/*editor/*
-// @author         Rick Zabel '2014
+// @author         Alex Swavely (helifino206) '2015
 // @license        MIT/BSD/X11
 // @require https://greasyfork.org/scripts/16071-wme-keyboard-shortcuts/code/WME%20Keyboard%20Shortcuts.js
-// @icon			data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAwCAYAAACFUvPfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQyQjZDNjdEODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQyQjZDNjdFODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDJCNkM2N0I4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDJCNkM2N0M4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6++Bk8AAANOElEQVR42tRZCWxU1xW9M39mPB5v431fMLYJdmpjthQUVsdlS9IQQkpIIDRhl5pKQUpbKkAEpakQIhVVRUytQIGwihCaBkgItQELQosxdrDZ7Njjbbx7vM0+f3ruZDz1NmTGhEj59tOb//979553313fl9jtdvqpXbLHRVgikTz0NbdJkyYJERERUp1OJ1Wr1WJLS4tYXFxswzu7s408+XFJ2g1oSUZGhtzf318piqLKx8dHZbPZFFKpVMC9TRAEs8lk0uNe39vbaywvL7eMBP5HAz179myZxWLxxfNg3IZHRkbG5OTkpEPSkQAs1Wq1nQUFBVXt7e2twNSGMdx3yuVyQ2FhofVHBw01kCsUigA8i1m9evXc3Nzc5TExMRMhUfnAOZC6VaPRlJ8+ffrzM2fOXMW9BvgazWZzD9TG8qOBZgnr9fqg5OTklPfff39bUlLSfL3ZKvmmqZ2q2rqoy2h2jAtSKmhsaBD9LDqUVAqZ/fbt29c2b978IfS9HCqjUalUXf0Sfyygp0+f7kB8584d6bhx4/xTU1PT9uzZk69WB2derdHSxQf1ZLTaRpyrlAmUkxpH05OiqbGxoWrjxo07Wltbb0KFNNevX+/FENEBmqUyWvCTJ0+WDPEKrh4S8oFXiDp+/HhedHT0M6fKvqWbDa0e0Z0YG05LMpPp/v37xWvXrn0XqlRWX1+vraysNEkfZu38zE1zXHPmzOH53ARuAQEBUuieBM2OJoaFhSl27NixAPr7TGFVo8eA+eKxPAc7Nen111/PgX5HxMXF+TIsmSe+1bkbEuintKamRoBeyqxWq6Knp0eA2xJAUAJ3Zce9+PTTT9tkMpkF7opgQEEwwjU6g4kKKhu83sWCynrKjg2jhQsXPrd///4L2Dkm0iv9PntiSUIF5JmZmSpMCsI2hwNMNBYSC4+QgLUkoE909vF4HoP3kVhY+Pz589Mh/czi+layiqLXoK2inXhuVFRUUlZWViIE45eSkiI8LCKyZAUAZbfki8sfxhA4bdq0+GXLluUmJCRMBqCxkHQY9E2BdxwY2iDtqtra2hsHDhy4jIVOYTqV8BIDr3ERakd/r0Xn9nf/9aBNx4YpmTlzZtrNmzcvBwUFuQXNIZaDgRJS84eDV8+bN2/cqlWr1rF+AqTMbDFRU72WdI29ZNZbSaGSKdQx/jFRcdExERGTZ6Snp/8GYbmGiXVBPQZeyyakOvrtX/7X7e/+S2f4ziXCPoIhaam73MMBGJcvBgXBP4bv3LnztSlTpmwAWOW9svtU/kkd1V/rINE23ONIBQnFTQuh1OciZXHJsSn8TBwy7NitB67g7O53/yX8386sHOqhgnbZSCrBEoaOqpVKZXReXt5W6OfC5uZGuvjnW9RU2v1QPbRZ7aS50kbVl5spY2kHLdg4i0L9lNRtMrvGDNx+d7/7rxCVj6Nva2vTArARPts21BClHR0dPqy7MKgIAOYItrD8ZgUdWXmFtCVdZIfYPGsILufqsBsipYYHjTpQpYWrCXjEixcv3oKX6oNXGgRasmDBAhkyMD+MCd21a9dKAF5QUVxB598uJZvR5nB9njZHcOm20oOva2lKfAT5yASvAXN0nIy5zc3NJRUVFd/CvvpY26QDsjABhqMEw0AYXQZ0eG1TUwOd+30pr9QrwA7Q+JfapVT0j1sE46BF4xO9Bv1sehIDF8+ePfsR7KmF01UOG/06LUGIFIKDg33hwtRvvPHGagzyOf9uMVlNVrdEx+ZEUdZLSZSYlkBymYK6ejrp/rVqupFfTT3NBodNNd1pp6IjJTRzxSRHcsR5hyfXL9LiaWJcOOcvJ/Pz8wvgSjud+bXLe0iR3yogIb+JEyeOiY+Pn1VRUkHaMt3I5Y5CSs/unkTjJ4wf9FwdGEJT54VQ1px0Or21kKqLWhGdZHRpXwn5h6goZ9F4ig5UEecgBsvIwghVKSHhRPjsYIIgv3jrrbfeMxqNWrhQA0DbXaChGhKkjwpI2W/JkiXsh4XS4xq3SdSczRnDAA+8fBS+9OKOuZS/4jPS1fUhlRTo0z8VUGeHjua+Ng3pp47+U9viGv8Egkp0oB+NCQlEehrI6mhEarpvw4YNfzMYDM3IEntPnjxpG1QjsmogPCtgnX6JiYnZJrPRISW7OBy0b4Ccsudkfu/2KuQ+NGXtGPrij9+QiD8b/vyDVWSDfVQ0dTrGBPjI6YUnk+mJyGDOF+wACCj1Xx47duwQ9Pge7ruReJmcdePgwjY8PFzKtRoinxKpZFJjbSNXESOCCc8IIgQdj/QyeUI8AkupA3DChCiaujCTyps7KF7tT2mQ7oSYMJJJyFp840beoUOHjiBM17OHAG8DUgTzgCJ3eDXOKSUsU4ZtUSDHUHc0drlVjYAYpcfWLyBL6KczY/kkkkgl9CQqE27skZAb30Cuve/ChQuFiA9aCM9YVFRke1gl7gKN1UkQtlnaUq7bLMglyA3omGzPA0VjdZODDjJwOrXlIl3PKiOFv5ySc8IoKT2BkMt8AL4VXMjCyPq+D+ywcw+AtbNKoFnkKplctItDPIZArx6cRWOSx3oMuvhgFfXTsejtVH2tyZHspuZGENwru68upAt9UDeLp4DJWXUQJyFI6kVMtvX19XWExquHBQsL/PX9As8T+Suffk0PLjcOCjZkl3CFR5Fjwnh3O2BDlv4kyJvA5QDNFYczizK3t7fXxMbHkVQhcUhpYCvaW0H7Vp+iqsoHDwX87xNF9MWOkmHzuTHdmLg4gg5XMz/m6+RPXkkamZOIbeItMty7d++WXCan1LnRHOaHtbpbzVT4QZljxTbRRof/8E/au+oEHd3+LxewygtNI87llga6TP/u3bulzI/5Mn+vz/JQMNpQdXCmrj948GBRbm7uqqmvjfOpOKsZcdK317T0l5c/JptJpM7671LV+jJCFvixw0O01ejcV++vphFU0XT48OEi2I+e8yrm77WkCwsLRURDM3S6j8t0RKPC1CfSaOysGLd61VrZSR11XYOetWl01Frd6XYO00sbP47gKQpRkmmZH/Nl/l6DZhMBWOT+FnY7nbt37z4Bwfcs3jaLfIOUXmd4IzWmw/SYLtNnPsyP+XrjOQaBhqO3wmfqwUBXVVVVjVj/kTooxL48fzYJPsKIRuVp4/lMh+kxXabPfJgf8x0taEcph2TbzPEev1v27t174dKlS6fGpqTSm0fnU0C4alQS5nk8n+mA3idMl+kzH+bntFAaLWiWNm+VHv6zHX3D1q1bD3/11VcnksYki7898yvKfGkMOHgGlsdlvphMPI/nMx3QO8R0nfT1Tn5en8e5zvIGFrZc6fDBDIhHwJfGvvLKK7NXrFjxa+QoIVptA109WUqlJ2uot1M/jKBcIaOpq9Jo+tIsio6O5RjQgWToo6NHj15C1G2AHrfA+PggxAgDdOUZ3pwlDgU9CDhcUgDcUxisPDIkJCQBCflzTz311BzUkUG1dTX01+c/Iat5sLd6YefPadaiGQy2+/r16wV79uz5rLOzUwNazdDhNtDqGQr4hwDtAg7GCpVK5YeQq4bUQyCpSDCOfeedd55HHTm/8MwV+nTzVdekJ+cn0Zu7XubsrWLNmjUfYpfq0Jqw8HaEah0KjT5OOYcC/qFAu87xAF6u0+mU2FJ/gOZTnkg8jz9w4MCm5OTkjL+/fYxun9eQOiqAfvf5ShQOEt26deve1Wg0d0FbC3VoR+tBns7StTgNzz7SIedoDJFGOGfmbbYhxzZBWj0A3c6SQ2vYtm1bPpKrruXvLSJ1tD+9ujeHfJV+Yl5e3n4EjkoGDJVoY8A8f0ColgykP6qvDCPp9NKlS6UlJSUyqIYMDAU+u8MYmfNLlD+kHQbgcYsXL56xadOm9XpDr9RPFUAFBQVfbtmy5Qho1rFb4zVjjhH31sDAQCvcHJ+7WLu7u22IitaBn94eRT1cugxg/CXKl8/vMEbOF/d8tIBxfIIaivvI7du3/zInJ2d2XV1dzcqVKz+EZDlb4tPzHrw3YryZQXNihN0y8yIw1xAREWE8d+5cv7o8EmhpSkqKHGWPH0Cr+XiMz4TZk3Apxh6tHziYx+J3KNYSCA+xaOfOnVeqq6ubQUuH941o7NYYlJULC4w14Z0ehtyLe37XY8SFOtD6HWa7d1newEVwkcuqwODQs5T5k4EvepY+PxMgMTkWwc9l4Gtfv379ebwX0QS89+HzE/Qc7fhs28qVCcYL/LUAcy0Od65QCJj7g3xmtrPBREVFOXJrMOdi1wYAnLbKISHWbWbOC+vg+XzPjZUV4/mrq5V7bpC2o7jghnszABv4EJH9NPhY+w9fHhl0dna2FQQNXE1gK01wdQpIhMexWjgAcyXt7LmxivEnGTvXmUyDF8D3zm13nCszcNZrVhN4HRaC2Z37G5X36P/YjtJLCA0NlfIRA38UQi+BtCT8Ycj5hVUy/NhAcIFgb8H3SqVSZCH4+fmJ7DmgguLjiIhDvwmyG+SyTALmHvtYLNIOcHaei5S0H5X9UYPL/wQYAOwQASZqvrLnAAAAAElFTkSuQmCC
 // ==/UserScript==
-//URO+ in order for the URO pop up not to be over the ur pin change the URO+ script find all 4 uroPopupX = markerXY.x + popupXOffset; and change it to uroPopupX = markerXY.x + popupXOffset + 40;
-//to make this script find open URs faster change the number 1000 to something smaller this is in milliseconds 1000 = 1 second
-//line 892 it looks like this setTimeout(URComments.LookForOpenedUR, 1000);  // 1 second search
-//line 892 it looks like this setTimeout(URComments.LookForOpenedUR, 500);   // .5 second search
-var URCommentVersion = GM_info.script.version;//var URCommentVersion = "1.5.4"; //branched from 0.9.3
-var URCommentUpdateMessage = "yes"; // yes alert the user, no has a silent update.
+var WMEMentorVersion = GM_info.script.version;//var WMEMentorVersion = "1.5.4"; //branched from 0.9.3
+var WMEMentorUpdateMessage = "yes"; // yes alert the user, no has a silent update.
 
 /* Changelog
-The change log has been moved to https://docs.google.com/spreadsheets/d/1PM4bOYGJxL82E4th2yy87ZzQKpMDF4N1dcKZ2evXc5o/edit?usp=sharing
-This sheet will now be used to also track editor requests, to add a request please pm me on waze at rickzabel  
+The changelog is at https://github.com/helifino/waze-mentor-script
+This is where I'll track editor requests, to add a request please pm me on waze at helifino206 or file an Issue on github.
 */
 
 //here is my todo; remove ur count, instruction link in new window
 
-var URCommentVersionUpdateNotes = "UR Comments has been updated to " + URCommentVersion;
-URCommentVersionUpdateNotes = URCommentVersionUpdateNotes + "\n" + "Changed Malaysia to Malaysian. Reworked the way the filters work, added Malaysia to the comments list, added Keyboard Shortcuts for all of the comments in your list. Updated the reload button to work correctly with the script keep my layers. some of the changes might be quirky but I wanted to get the Malaysia list included!";
+var WMEMentorVersionUpdateNotes = "WME Mentor Script has been updated to " + WMEMentorVersion;
+WMEMentorVersionUpdateNotes = WMEMentorVersionUpdateNotes + "\n" + "Initial alpha";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////
@@ -46,13 +41,13 @@ var BoilerPlateCreatorsArray = [
     "Custom",
 
 	"BrazilianPortuguese", //maintained Murilo-Carvalho mcarvalho79&gmail.com https://greasyfork.org/en/scripts/7292-wme-ur-comments-brazilianportuguese-list
-	"ColombianSpanish", //maintained Mincho77 mincho77&gmail.com https://greasyfork.org/en/scripts/13840-wme-urcomments-colombian-spanish-list
+	"ColombianSpanish", //maintained Mincho77 mincho77&gmail.com https://greasyfork.org/en/scripts/13840-wme-WMEMentor-colombian-spanish-list
 	"Czech", //maintained by Zirland zirland&gmail.com
 	"Dutch", //maintained by moweez moweeznh&gmail.com updated https://greasyfork.org/nl/scripts/7276-wme-ur-comments-dutch-list
-	"IndonesianBahasa", //maintained by projectronic https://greasyfork.org/en/scripts/13197-wme-urcomments-bahasa-indonesia
+	"IndonesianBahasa", //maintained by projectronic https://greasyfork.org/en/scripts/13197-wme-WMEMentor-bahasa-indonesia
 	"International", //maintained by moweez moweeznh&gmail.com updated 
-	"IsraeliHebrew", //maintained by crayzee, ktamir&gmail.com updated https://greasyfork.org/en/scripts/8682-wme-urcomments-hebrew-list
-	"Malaysian", //maintained by RisingSun, mobiletopupbusiness&gmail.com updated https://greasyfork.org/en/scripts/16261-wme-urcomments-malaysia-list/code
+	"IsraeliHebrew", //maintained by crayzee, ktamir&gmail.com updated https://greasyfork.org/en/scripts/8682-wme-WMEMentor-hebrew-list
+	"Malaysian", //maintained by RisingSun, mobiletopupbusiness&gmail.com updated https://greasyfork.org/en/scripts/16261-wme-WMEMentor-malaysia-list/code
 	"Spanish", //maintained by carloslaso carloslaso&gmail.com https://greasyfork.org/en/scripts/7279-wme-ur-comments-spanish-list
 	//"Italian", //maintained by Fabianotkd, fabiano.fumarola&gmail.com
 
@@ -75,7 +70,7 @@ if (SelectedBoilerPlateCreator === "" || SelectedBoilerPlateCreator === null || 
 }
 
 //array that holds the comments
-var URCommentsArray = [];
+var WMEMentorArray = [];
 
 //these are the holders for the position in the comments list that the reminder and close messages are at
 var ReminderPosistion = "";
@@ -91,7 +86,7 @@ var URC_USER_PROMPT = []; //URC Alerts, Confirmations, and orange box messages
 //waze swaps out the close button on the UR window after you click send. we use this to grab the close and compare to the new one
 var CloseButtonHolder = "";
 //since we are scanning for open UR I need to keep track of the current urID so the comments can be overridden
-var UrCommentLasturID = "";
+var WMEMentorLasturID = "";
 
 //this is used to hold the info about the previous tab, before we auto switched tabs
 var PreviousTab = null;
@@ -104,7 +99,7 @@ var ChangeLanguage = false;
 //return to zoom instead of zoom 0
 var ReturnToCurrentZoom = "";
 
-var UrCommentsIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAwCAYAAACFUvPfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQyQjZDNjdEODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQyQjZDNjdFODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDJCNkM2N0I4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDJCNkM2N0M4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6++Bk8AAANOElEQVR42tRZ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";
+var WMEMentorIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAwCAYAAACFUvPfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQyQjZDNjdEODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQyQjZDNjdFODYzODExRTRBRDY0Q0I2QjA1MjU4N0EyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDJCNkM2N0I4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDJCNkM2N0M4NjM4MTFFNEFENjRDQjZCMDUyNTg3QTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6++Bk8AAANOElEQVR42tRZ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";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////
@@ -114,11 +109,11 @@ var UrCommentsIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAwCAYA
 
 
 function urcToConsole(logtext) {
-    //console.log('URComments: '+logtext);
+    //console.log('WMEMentor: '+logtext);
 }
 
 //now we use this to load the arrays, but we wait till the me tab &loads, this gives the custom comments file a chance to also load
-function URComments_bootstrap() {
+function WMEMentor_bootstrap() {
     //urcToConsole("Test");
     //get the SelectedBoilerPlateCreator
     var SelectedBoilerPlateCreator = localStorage.getItem('BoilerPlateCreators');
@@ -134,7 +129,7 @@ function URComments_bootstrap() {
 
     if (SelectedBoilerPlateCreator === "CommentTeam") {
 
-        URCommentsArray = [
+        WMEMentorArray = [
 			"No further communication",
 			"No further information was received and the request is being closed. As you travel, please feel welcome to report any map issues you encounter. Thanks!",
 			"Solved", //t0cableguy 12/8/14 //rickzabel 12/8/14 , karlcr9911 12/8/14
@@ -200,18 +195,18 @@ function URComments_bootstrap() {
 			"NotIdentified",
 
 			"Valid Left turns",
-			//"Volunteer responding - If you wait and complete the left turn, it may actually be faster than the alternative. If it’s not faster, you wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //rz 2/26/15 
-			"Volunteer responding - If you wait and complete the left turn, it may actually be faster than the alternative. If it’s not faster, your wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
+			//"Volunteer responding - If you wait and complete the left turn, it may actually be faster than the alternative. If it's not faster, you wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //rz 2/26/15 
+			"Volunteer responding - If you wait and complete the left turn, it may actually be faster than the alternative. If it's not faster, your wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
 			"NotIdentified",
 
 			"Valid Left turns 2",
-			//"Volunteer responding – We do not disable legal turns only because they are difficult. If you wait and complete the left turn, it may actually be faster than the alternative. If it’s not faster, you wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //rz 2/26/15
-			"Volunteer responding – We cannot disable legal turns only because they are difficult. If you wait and complete the left turn, it may actually be faster than the alternative. If it’s not faster, your wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
+			//"Volunteer responding - We do not disable legal turns only because they are difficult. If you wait and complete the left turn, it may actually be faster than the alternative. If it's not faster, you wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //rz 2/26/15
+			"Volunteer responding - We cannot disable legal turns only because they are difficult. If you wait and complete the left turn, it may actually be faster than the alternative. If it's not faster, your wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting left turns at that intersection. We also suggest if you do not feel comfortable making such left turns, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
 			"NotIdentified",
 
 			"Valid but Difficult Route",
-			//"Volunteer responding – We do not disable legal routes only because they are difficult. If you wait and complete the route, it may actually be faster than the alternative. If it’s not faster, you wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting the route. We also suggest if you do not feel comfortable, you can always go another route and let Waze recalculate."', //rz 2/26/15
-			"Volunteer responding – We cannot disable legal routes only because they are difficult. If you wait and complete the route, it may actually be faster than the alternative. If it’s not faster, your wait time will contribute to Waze’s database, thus helping to discourage the routing server from suggesting the route. We also suggest if you do not feel comfortable, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
+			//"Volunteer responding - We do not disable legal routes only because they are difficult. If you wait and complete the route, it may actually be faster than the alternative. If it's not faster, you wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting the route. We also suggest if you do not feel comfortable, you can always go another route and let Waze recalculate."', //rz 2/26/15
+			"Volunteer responding - We cannot disable legal routes only because they are difficult. If you wait and complete the route, it may actually be faster than the alternative. If it's not faster, your wait time will contribute to Waze's database, thus helping to discourage the routing server from suggesting the route. We also suggest if you do not feel comfortable, you can always go another route and let Waze recalculate.", //karlcr9911 4/4/15 //rickzabel 4/5/15
 			"NotIdentified",
 
 			"Missing place",
@@ -266,7 +261,7 @@ function URComments_bootstrap() {
 			"Traffic - Stale Information",
 			//"Volunteer map editors can't do anything about Waze's traffic reporting. Waze relies on data from people using Waze to assess traffic. In the case of a fresh accident or slowdown, Waze may not yet have any data on the situation. Once Waze has detected a traffic situation, it can remember it for awhile, sometimes long after the situation changes.",
 			//"Waze relies on data from people using Waze to assess traffic. The volunteer map editors cannot edit conditions reported through the Waze app. In the case of a recent accident or slowdown, Waze may not have any data for this situation. Once Waze has detected a traffic situation it might remember it for a period of time after the situation cleared up.", // reworded - rickzabel 12/7/2014, karlcr9911 12/8/14
-			//”Waze relies on data from users like you to assess traffic. Map editors cannot cannot remove traffic jams reported through the Waze app. Once Waze has detected a traffic jam it will remain active until enough users vote it off the map or users travel through the intersection at normal speed. You can help clear traffic jam reports by tapping “not there” in the app when the pins appear. Thanks!” //t0cableguy 07/12/2015
+			//"Waze relies on data from users like you to assess traffic. Map editors cannot cannot remove traffic jams reported through the Waze app. Once Waze has detected a traffic jam it will remain active until enough users vote it off the map or users travel through the intersection at normal speed. You can help clear traffic jam reports by tapping "not there" in the app when the pins appear. Thanks!" //t0cableguy 07/12/2015
 			"Map editors are unable to remove traffic jams. You can help clear traffic reports by tapping \"not there\" when prompted or by traveling through the intersection at normal speed.", // rickzabel 7/22/2015 //t0cableguy 7/22/2015
 			"NotIdentified",
 
@@ -277,9 +272,9 @@ function URComments_bootstrap() {
 
 			"Signal Avoidance Bug",
 			//"I do not see any issues with the current turn restrictions in the area. This appears to be part of the known signal avoidance bug. Waze's developers are working on a fix for the issue but currently we do not have an ETA. Please feel free to take the turn until the issue is resolved. Thanks!",  // remove - rickzabel 12/7/2014  // added - rickzabel 12/7/2014
-			//"There are no issues with the intersection’s turn restrictions. Waze's developers are working on a fix for this issue but we do not have an ETA. Please feel free use the signaled turn until the issue is resolved. Thanks!", // t0cableguy 12/7/14 
-			//"There are no issues with the intersection’s turn restrictions. Waze's developers are working on a fix for this issue but we do not have an ETA. Please feel free to use the turn until the issue is resolved. Thanks!", // rickzabel 12/9/14
-			"There are no issues with the intersection’s turn restrictions. Waze's developers are working on a fix for this issue. We do not have an ETA. Please feel free to use the turn until the issue is resolved. Thanks!", //GizmoGuy, t0cableguy, rickzabel 1/14/2015
+			//"There are no issues with the intersection's turn restrictions. Waze's developers are working on a fix for this issue but we do not have an ETA. Please feel free use the signaled turn until the issue is resolved. Thanks!", // t0cableguy 12/7/14 
+			//"There are no issues with the intersection's turn restrictions. Waze's developers are working on a fix for this issue but we do not have an ETA. Please feel free to use the turn until the issue is resolved. Thanks!", // rickzabel 12/9/14
+			"There are no issues with the intersection's turn restrictions. Waze's developers are working on a fix for this issue. We do not have an ETA. Please feel free to use the turn until the issue is resolved. Thanks!", //GizmoGuy, t0cableguy, rickzabel 1/14/2015
 			"NotIdentified",
 
 			"Already included restrictions",
@@ -331,8 +326,8 @@ function URComments_bootstrap() {
 			"NotIdentified", //t0cableguy This should be a last chance option for fixing the issue.04-04-2015  //rickzabel 04-04-2015 
 
 			"Camera report",
-			//"Thanks for the report. To ensure proper placement, Cameras must be reported in the app.  REPORT > CAMERA (may have to scroll down for it) > SPEED/Red LIGHT > Submit”, //subs5 4/17/2015
-			//"Thanks for the report. To ensure proper placement, Cameras must be reported in the app. REPORT > (scroll to) CAMERA > SPEED / Red LIGHT / Fake  > Send”, //GizmoGuy411 2015-04-17
+			//"Thanks for the report. To ensure proper placement, Cameras must be reported in the app.  REPORT > CAMERA (may have to scroll down for it) > SPEED/Red LIGHT > Submit", //subs5 4/17/2015
+			//"Thanks for the report. To ensure proper placement, Cameras must be reported in the app. REPORT > (scroll to) CAMERA > SPEED / Red LIGHT / Fake  > Send", //GizmoGuy411 2015-04-17
 			"Volunteer responding, cameras must be reported from the app at / near the actual location using the Report > Camera option. Thank you!", //karlcr9911 rickzabel 4/17/2015
 			"NotIdentified",
 
@@ -485,16 +480,16 @@ function URComments_bootstrap() {
 			"Open",
 
 			"Address - Incorrect Position",
-			//"Thank you for your report. Would you please let us know what address you’re reporting the problem with? You can also use the Report -> Places feature in Waze to mark the location. It is helpful that after taking a picture, if you move near the location your are marking to save the place. Also, please do not submit pictures containing faces, license plates, or similar personal details. Thanks!", //i also prefer not to send messages with contractions "you’re" rickzabel 12/7/14
+			//"Thank you for your report. Would you please let us know what address you're reporting the problem with? You can also use the Report -> Places feature in Waze to mark the location. It is helpful that after taking a picture, if you move near the location your are marking to save the place. Also, please do not submit pictures containing faces, license plates, or similar personal details. Thanks!", //i also prefer not to send messages with contractions "you're" rickzabel 12/7/14
 			//"What was the Address you had issues with? Please show us where the address you had issues is with the Report > Places feature in Waze. After taking a picture move as close to the entrance of the place you are adding before saving. Please do not submit images with personal details. Thanks!", //t0cableguy 12/7/14, karlcr9911 12/8/14
 			//"What was the Address you had issues with? Please show us where the address you had issues is with the Report > Places feature in Waze. After taking a picture, move close to the entrance of the place you are adding, before saving. Please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 2/26/15
 			"Can you tell us the address or if you can revisit visit the location, please show us the correct position by using the Report > Places feature. Before you save move as close as possible to the entrance. Please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel t0cableguy 04-04-2015
 			"Open",
 
 			"Address - Missing from Map",
-			//"Thank you for your report. Would you please let us know where the address you're reporting is? The live map doesn't have all the street numbers for that street and Waze is interpolating in error. You can also use the Report -> Places feature in Waze to mark the location. It is helpful that after taking a picture, if you move near the location you’re marking to save the place. Also, please do not submit pictures containing faces, license plates, or similar personal details. Thanks!", //rickzabel 12/7/14 
-			//"Volunteer responding -  Would you let us know the address that is missing? The live map does not have all the street numbers. You can also use the Report Places feature in Waze to mark the location. It is helpful that after taking a picture that you move near the location you’re marking to save the place. Also, please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 12/9/14 
-			//"Volunteer responding -  Would you let us know the address that is missing? The live map does not have all the street numbers. You can also use the Report Places feature in Waze to mark the location. It is helpful that after taking a picture that you move near the location you’re marking to save the place. Please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 2/26/15 
+			//"Thank you for your report. Would you please let us know where the address you're reporting is? The live map doesn't have all the street numbers for that street and Waze is interpolating in error. You can also use the Report -> Places feature in Waze to mark the location. It is helpful that after taking a picture, if you move near the location you're marking to save the place. Also, please do not submit pictures containing faces, license plates, or similar personal details. Thanks!", //rickzabel 12/7/14 
+			//"Volunteer responding -  Would you let us know the address that is missing? The live map does not have all the street numbers. You can also use the Report Places feature in Waze to mark the location. It is helpful that after taking a picture that you move near the location you're marking to save the place. Also, please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 12/9/14 
+			//"Volunteer responding -  Would you let us know the address that is missing? The live map does not have all the street numbers. You can also use the Report Places feature in Waze to mark the location. It is helpful that after taking a picture that you move near the location you're marking to save the place. Please do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 2/26/15 
 			"Volunteer responding - Would you let us know the address that is missing? The available resources do not have the address available for your location. You can use the Report > Places feature in Waze to mark the location. Before you save move close as possible to the entrance. Do not submit pictures containing faces, license plates, or personal details. Thanks!", //rickzabel 4/5/2015 //t0cableguy 4/5/2015
 			"Open",
 
@@ -517,9 +512,9 @@ function URComments_bootstrap() {
 
 			"Manual Refresh",
 			//"You can try a manual refresh by going to Settings > Advanced > Data transfer > refresh maps.",
-			//"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Second you can try clearing Waze's app cache in your phone’s app manager. The final option is  to Uninstall and Reinstall the app.", //t0cableguy 12/7/14
-			//"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Second, you can try clearing Waze's app cache in your phone’s app manager. The final option is to reset the app by going to the navigation screen and type ##@resetapp in search field and hit search.", // to Uninstall and Reinstall the app. (avoid user to use cellular data) //carloslaso 12/7/14 //rickzabel //t0cableguy
-			"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Secondly, you can try clearing Waze's app cache in your phone’s app manager. The final option is to reset the app by going to the navigation screen and type ##@resetapp in search field and hit search.", //GizmoGuy rickzabel 2/26/15
+			//"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Second you can try clearing Waze's app cache in your phone's app manager. The final option is  to Uninstall and Reinstall the app.", //t0cableguy 12/7/14
+			//"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Second, you can try clearing Waze's app cache in your phone's app manager. The final option is to reset the app by going to the navigation screen and type ##@resetapp in search field and hit search.", // to Uninstall and Reinstall the app. (avoid user to use cellular data) //carloslaso 12/7/14 //rickzabel //t0cableguy
+			"Please try doing these options. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh Map Of My Area. Secondly, you can try clearing Waze's app cache in your phone's app manager. The final option is to reset the app by going to the navigation screen and type ##@resetapp in search field and hit search.", //GizmoGuy rickzabel 2/26/15
 			"Open",
 
 			"Pave Road",
@@ -527,19 +522,19 @@ function URComments_bootstrap() {
 			//"Please use the pave function in the app to show us the path of the missing road. You can do this by tapping the bottom right Pin icon, then Map Issue, and selecting the Pave Road tab. Once you leave any mapped roads you can tapp paving. Please be sure to tap the steamroller and tap stop paving before driving back onto any roads that are mapped. If paving a parking lot please only drive the main roads and perimeters, not each aisle and space. Thanks for your contribution to the map! Thanks!",//rickzabel
 			//"Please pave the road in the app. Tap the Pin icon > Map Issue > Pave Road tab. After leaving any mapped roads tap start paving. Once done tap the steamroller > stop paving. Thanks for your contribution to the map!", //shortened and voted for by t0cableguy 12/7/14, karlcr9911 12/8/14
 			//"Please pave the road in the app. Tap the Pin icon > Map Issue > Pave Road tab. After leaving any mapped roads tap start paving. Once done tap the steamroller > stop paving. If you then tap the  Pin icon (Report) > Map Issue > Missing Road, you can enter text providing information about the new road (name, is it a private road, etc.). Thanks for your contribution to the map!",//addition suggested by SuperDave1426 12/08/14
-			//We already have open communication if we are telling them to pave a road. It would be helpful to drop ur pins but we have open communication and the users know how to submit reports. We shouldn’t close the UR that is already open, so we don’t need another UR.  t0cableguy 12/8/14 I’m leaning more torward adding this though SD as a teaching tool. t0cableguy 12/8/14
+			//We already have open communication if we are telling them to pave a road. It would be helpful to drop ur pins but we have open communication and the users know how to submit reports. We shouldn't close the UR that is already open, so we don't need another UR.  t0cableguy 12/8/14 I'm leaning more torward adding this though SD as a teaching tool. t0cableguy 12/8/14
 			//"Volunteer responding - You can pave the road from the app by tapping the Pin icon > Map Issue > Pave Road tab. After leaving the paved road tap start paving. Once done tap the steamroller > stop paving. You can provide information about the new road such as it's name buy tapping on the Pin icon > Map Issue > Missing Road, and Thanks!", //rickzabel 12/8/14 t0cableguy 12/8/14
 			//"Volunteer responding - You can pave the road from the app by tapping the Pin icon > Map Issue > Pave Road tab. After leaving the paved road tap start paving. Once done tap the steamroller > stop paving. You can provide information about the new road such as it's name by tapping on the Pin icon > Map Issue > Missing Road, and Thanks!", //rickzabel 2/26/15
 			"Volunteer responding - You can pave the road from the app by tapping the Pin icon > Map Issue > Pave Road tab. After leaving the paved road, tap Start paving. Once done, tap the Steamroller > Stop paving. You can provide information about the new road such as its name by tapping on the Pin icon > Map Issue > Missing Road. Thanks!", //karlcr9911 4/5/15 //rickzabel 4/5/15 removed single quotes
 			"Open",
 
 			//"Blank Screen.",
-			//"Please follow these instructions in the app. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh map of my area. Second you can try clearing Waze's app cache in your phone’s app manager. The final option is  to Uninstall and Reinstall the app.",
+			//"Please follow these instructions in the app. Tap the Wazer icon > Settings > Advanced > Data transfer > Refresh map of my area. Second you can try clearing Waze's app cache in your phone's app manager. The final option is  to Uninstall and Reinstall the app.",
 			//"Open", //requested by t0cableguy 12/7/14 in map refresh now t0cableguy 12/8/14
 
 			"Unlock request",
 			//"I have requested the rights to get this issue fixed. Thanks for your report. Thanks! ", //requested by t0cableguy 12/8/14 
-			//"Volunteer responding to your report: I have requested the rights to get this issue fixed. Thanks for your report.", //rikzabel 12/8/14  i usually dont say anything cause this is weird that they made a request for you to make a request…
+			//"Volunteer responding to your report: I have requested the rights to get this issue fixed. Thanks for your report.", //rikzabel 12/8/14  i usually dont say anything cause this is weird that they made a request for you to make a request...
 			//"I have begun the process to get this issue fixed. Thanks for your report. Thanks! ",//reword t0cableguy 12/8/14
 			//"I have begun the process to get this issue fixed. Thanks for your report!", //rickzabel 12/11/14
 			"I have started the process to get this issue fixed. Thanks for your report!", //GizmoGuy, t0cableguy, rickzabel 1/14/2015
@@ -596,8 +591,8 @@ function URComments_bootstrap() {
 		URC_Text_tooltip[8] = "Instructions for UR filtering";
 		URC_URL[8] = "https://docs.google.com/presentation/d/1zwdKAejRbnkUll5YBfFNrlI2I3Owmb5XDIbRAf47TVU/";
 
-        URC_Text[9] = "Enable URComments UR filtering";
-        URC_Text_tooltip[9] = "Enable or disable URComments filtering";
+        URC_Text[9] = "Enable WMEMentor UR filtering";
+        URC_Text_tooltip[9] = "Enable or disable WMEMentor filtering";
 
         URC_Text[10] = "Enable UR pill counts";
         URC_Text_tooltip[10] = "Enable or disable the pill with UR counts";
@@ -670,8 +665,8 @@ function URComments_bootstrap() {
         URC_Text[33] = "Auto zoom out after comment";
         URC_Text_tooltip[33] = "After clicking on a UR-Comment in the list and clicking send on the UR the map zoom will be set back to your previous zoom";
 
-        URC_Text[34] = "Auto switch to the UrComments tab";
-        URC_Text_tooltip[34] = "Auto switch to the URComments tab when opening a UR, when the UR window is closed you will be switched to your previous tab";
+        URC_Text[34] = "Auto switch to the WMEMentor tab";
+        URC_Text_tooltip[34] = "Auto switch to the WMEMentor tab when opening a UR, when the UR window is closed you will be switched to your previous tab";
 
         URC_Text[35] = "Close message - double click link (auto send)";
         URC_Text_tooltip[35] = "Add an extra link to the close comment when double clicked will auto send the comment to the UR windows and click send, and then will launch all of the other options that are enabled";
@@ -680,7 +675,7 @@ function URComments_bootstrap() {
         URC_Text_tooltip[36] = "Add an extra link to each comment in the list that when double clicked will auto send the comment to the UR windows and click send, and then will launch all of the other options that are enabled";
 
         URC_Text[37] = "Comment List";
-        URC_Text_tooltip[37] = "This shows the selected comment list. There is support for a custom list. If you would like your comment list built into this script or have suggestions on the Comments team’s list, please contact me at rickzabel @waze or @gmail";
+        URC_Text_tooltip[37] = "This shows the selected comment list. There is support for a custom list. If you would like your comment list built into this script or have suggestions on the Comments team's list, please contact me at rickzabel @waze or @gmail";
 
         URC_Text[38] = "Disable done button";
         URC_Text_tooltip[38] = "Disable the done button at the bottom of the new UR window";
@@ -700,29 +695,29 @@ function URComments_bootstrap() {
 		URC_Text[43] = "Dont show tag name on pill";
         URC_Text_tooltip[43] = "Dont show tag name on pill where there is a URO tag";
 
-        URC_USER_PROMPT[0] = "URComments - You either have a older version of the custom comments file or a syntax error either will keep the custom list from loading. Missing: ";
+        URC_USER_PROMPT[0] = "WMEMentor - You either have a older version of the custom comments file or a syntax error either will keep the custom list from loading. Missing: ";
 
-        URC_USER_PROMPT[1] = "URComments - You are missing the following items from your custom comment list: ";
+        URC_USER_PROMPT[1] = "WMEMentor - You are missing the following items from your custom comment list: ";
 
-        URC_USER_PROMPT[2] = "List can not be found. You can find the list and instructions at https://wiki.waze.com/wiki/User:Rickzabel/UrComments/";
+        URC_USER_PROMPT[2] = "List can not be found. You can find the list and instructions at https://wiki.waze.com/wiki/User:Rickzabel/WMEMentor/";
 
-        URC_USER_PROMPT[3] = "URComments you can not set close days to zero";
+        URC_USER_PROMPT[3] = "WMEMentor you can not set close days to zero";
 
-        URC_USER_PROMPT[4] = "URComments - To use the double click links you must have the Auto click open, solved, not identified option enabled";
+        URC_USER_PROMPT[4] = "WMEMentor - To use the double click links you must have the Auto click open, solved, not identified option enabled";
 
-        URC_USER_PROMPT[5] = "URComments - Aborting FilterURs2 because both filtering, counts, and auto reminders are disabled";
+        URC_USER_PROMPT[5] = "WMEMentor - Aborting FilterURs2 because both filtering, counts, and auto reminders are disabled";
 
-        URC_USER_PROMPT[6] = "URComments: Loading UR data has timed out, retrying."; //this message is shown across the top of the map in a orange box, length must be kept short
+        URC_USER_PROMPT[6] = "WMEMentor: Loading UR data has timed out, retrying."; //this message is shown across the top of the map in a orange box, length must be kept short
 
-        URC_USER_PROMPT[7] = "URComments: Adding reminder message to UR: "; //this message is shown across the top of the map in a orange box, length must be kept short
+        URC_USER_PROMPT[7] = "WMEMentor: Adding reminder message to UR: "; //this message is shown across the top of the map in a orange box, length must be kept short
 
-        URC_USER_PROMPT[8] = "URComment's UR Filtering has been disabled because URO+\'s UR filters are active."; //this message is shown across the top of the map in a orange box, length must be kept short
+        URC_USER_PROMPT[8] = "WMEMentor's UR Filtering has been disabled because URO+\'s UR filters are active."; //this message is shown across the top of the map in a orange box, length must be kept short
 
-        URC_USER_PROMPT[9] = "UrComments has detected that you have unsaved edits!\n\nWith the Auto Save option enabled and with unsaved edits you cannot send comments that would require the script to save. Please save your edits and then re-click the comment you wish to send.";
+        URC_USER_PROMPT[9] = "WMEMentor has detected that you have unsaved edits!\n\nWith the Auto Save option enabled and with unsaved edits you cannot send comments that would require the script to save. Please save your edits and then re-click the comment you wish to send.";
 
-        URC_USER_PROMPT[10] = "URComments: Can not find the comment box! In order for this script to work you need to have a UR open."; //this message is shown across the top of the map in a orange box, length must be kept short
+        URC_USER_PROMPT[10] = "WMEMentor: Can not find the comment box! In order for this script to work you need to have a UR open."; //this message is shown across the top of the map in a orange box, length must be kept short
 
-        URC_USER_PROMPT[11] = "URComments - This will send reminders at the reminder days setting. This only happens when they are visible on your screen. NOTE: when using this feature you should not leave any UR open unless you had a question that needed an answer from the wazer as this script will send those reminders."; //conformation message/ question
+        URC_USER_PROMPT[11] = "WMEMentor - This will send reminders at the reminder days setting. This only happens when they are visible on your screen. NOTE: when using this feature you should not leave any UR open unless you had a question that needed an answer from the wazer as this script will send those reminders."; //conformation message/ question
 
         //end CommentTeam's list
 
@@ -736,181 +731,181 @@ function URComments_bootstrap() {
             var CustomErrorListCount = 0;
   
             //custom list
-            URCommentsArray = eval("window.Urcomments" + SelectedBoilerPlateCreator + "Array2");
+            WMEMentorArray = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "Array2");
 
             //the position in the list that the reminder message is at. (starting at 0 counting titles, comments, and ur status)
-            ReminderPosistion = eval("window.Urcomments" + SelectedBoilerPlateCreator + "ReminderPosistion");
+            ReminderPosistion = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "ReminderPosistion");
 
             //the position of the close as Not Identified message (starting at 0 counting titles, comments, and ur status)
-            CloseNotIdentifiedPosistion = eval("window.Urcomments" + SelectedBoilerPlateCreator + "CloseNotIdentifiedPosistion");
+            CloseNotIdentifiedPosistion = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "CloseNotIdentifiedPosistion");
 
             //copy the waze default titles into the active ?
             //Waze's default URs number to name conversion array
             //Thanks to SuperMedic
 
-            def_names[6] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[6]"); //"Incorrect turn";
-            def_names[7] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[7]"); //"Incorrect address";
-            def_names[8] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[8]"); //"Incorrect route";
-            def_names[9] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[9]"); //"Missing roundabout";
-            def_names[10] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[10]"); //"General error";
-            def_names[11] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[11]"); //"Turn not allowed";
-            def_names[12] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[12]"); //"Incorrect junction";
-            def_names[13] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[13]"); //"Missing bridge overpass";
-            def_names[14] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[14]"); //"Wrong driving direction";
-            def_names[15] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[15]"); //"Missing Exit";
-            def_names[16] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[16]"); //"Missing Road";
-            def_names[18] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[18]"); //"Missing Landmark";
-            def_names[19] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[19]"); //"Blocked Road";
-            def_names[21] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[21]"); //"Missing Street Name";
-            def_names[22] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "def_names[22]"); //"Incorrect Street Prefix or Suffix";	
+            def_names[6] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[6]"); //"Incorrect turn";
+            def_names[7] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[7]"); //"Incorrect address";
+            def_names[8] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[8]"); //"Incorrect route";
+            def_names[9] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[9]"); //"Missing roundabout";
+            def_names[10] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[10]"); //"General error";
+            def_names[11] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[11]"); //"Turn not allowed";
+            def_names[12] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[12]"); //"Incorrect junction";
+            def_names[13] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[13]"); //"Missing bridge overpass";
+            def_names[14] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[14]"); //"Wrong driving direction";
+            def_names[15] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[15]"); //"Missing Exit";
+            def_names[16] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[16]"); //"Missing Road";
+            def_names[18] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[18]"); //"Missing Landmark";
+            def_names[19] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[19]"); //"Blocked Road";
+            def_names[21] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[21]"); //"Missing Street Name";
+            def_names[22] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "def_names[22]"); //"Incorrect Street Prefix or Suffix";	
 
 
             //try {
-            URC_Text[0] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[0]");
-            URC_Text_tooltip[0] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[0]");
+            URC_Text[0] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[0]");
+            URC_Text_tooltip[0] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[0]");
 
-            URC_Text[1] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[1]");
-            URC_Text_tooltip[1] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[1]");
+            URC_Text[1] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[1]");
+            URC_Text_tooltip[1] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[1]");
 
-            URC_Text[2] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[2]");
-            URC_Text_tooltip[2] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[2]");
+            URC_Text[2] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[2]");
+            URC_Text_tooltip[2] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[2]");
 
-            URC_Text[3] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[3]");
-            URC_Text_tooltip[3] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[3]");
+            URC_Text[3] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[3]");
+            URC_Text_tooltip[3] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[3]");
 
-            URC_Text[4] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[4]");
-            URC_Text_tooltip[4] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[4]");
+            URC_Text[4] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[4]");
+            URC_Text_tooltip[4] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[4]");
 
-            URC_Text[5] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[5]");
-            URC_Text_tooltip[5] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[5]");
+            URC_Text[5] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[5]");
+            URC_Text_tooltip[5] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[5]");
 
-            URC_Text[6] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[6]");
-            URC_Text_tooltip[6] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[6]");
+            URC_Text[6] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[6]");
+            URC_Text_tooltip[6] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[6]");
 
-            URC_Text[7] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[7]");
-            URC_Text_tooltip[7] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[7]");
+            URC_Text[7] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[7]");
+            URC_Text_tooltip[7] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[7]");
 
-            URC_Text[8] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[8]");
-            URC_Text_tooltip[8] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[8]");
-			URC_URL[8] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_URL[8]");
+            URC_Text[8] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[8]");
+            URC_Text_tooltip[8] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[8]");
+			URC_URL[8] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_URL[8]");
 
-            URC_Text[9] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[9]");
-            URC_Text_tooltip[9] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[9]");
+            URC_Text[9] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[9]");
+            URC_Text_tooltip[9] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[9]");
 
-            URC_Text[10] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[10]");
-            URC_Text_tooltip[10] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[10]");
+            URC_Text[10] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[10]");
+            URC_Text_tooltip[10] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[10]");
 
-            URC_Text[11] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[11]");
-            URC_Text_tooltip[11] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[11]");
+            URC_Text[11] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[11]");
+            URC_Text_tooltip[11] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[11]");
 
-            URC_Text[12] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[12]");
-            URC_Text_tooltip[12] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[12]");
+            URC_Text[12] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[12]");
+            URC_Text_tooltip[12] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[12]");
 
-            URC_Text[13] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[13]");
-            URC_Text_tooltip[13] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[13]");
+            URC_Text[13] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[13]");
+            URC_Text_tooltip[13] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[13]");
 
-            URC_Text[14] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[14]");
-            URC_Text_tooltip[14] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[14]");
+            URC_Text[14] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[14]");
+            URC_Text_tooltip[14] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[14]");
 
-            URC_Text[15] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[15]");
-            URC_Text_tooltip[15] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[15]");
+            URC_Text[15] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[15]");
+            URC_Text_tooltip[15] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[15]");
 
-            URC_Text[16] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[16]");
-            URC_Text_tooltip[16] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[16]");
+            URC_Text[16] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[16]");
+            URC_Text_tooltip[16] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[16]");
 
-            URC_Text[17] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[17]");
-            URC_Text_tooltip[17] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[17]");
+            URC_Text[17] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[17]");
+            URC_Text_tooltip[17] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[17]");
 
-            URC_Text[18] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[18]");
-            URC_Text_tooltip[18] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[18]");
+            URC_Text[18] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[18]");
+            URC_Text_tooltip[18] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[18]");
 
-            URC_Text[19] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[19]");
-            URC_Text_tooltip[19] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[19]");
+            URC_Text[19] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[19]");
+            URC_Text_tooltip[19] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[19]");
 
-            URC_Text[20] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[20]");
-            URC_Text_tooltip[20] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[20]");
+            URC_Text[20] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[20]");
+            URC_Text_tooltip[20] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[20]");
 
-            URC_Text[21] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[21]");
-            URC_Text_tooltip[21] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[21]");
+            URC_Text[21] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[21]");
+            URC_Text_tooltip[21] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[21]");
 
-            URC_Text[22] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[22]");
-            URC_Text_tooltip[22] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[22]");
+            URC_Text[22] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[22]");
+            URC_Text_tooltip[22] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[22]");
 
-            URC_Text[23] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[23]");
-            URC_Text_tooltip[23] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[23]");
+            URC_Text[23] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[23]");
+            URC_Text_tooltip[23] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[23]");
 
-            URC_Text[24] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[24]");
-            URC_Text_tooltip[24] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[24]");
+            URC_Text[24] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[24]");
+            URC_Text_tooltip[24] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[24]");
 
-            URC_Text[25] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[25]");
-            URC_Text_tooltip[25] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[25]");
+            URC_Text[25] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[25]");
+            URC_Text_tooltip[25] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[25]");
 
-            URC_Text[26] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[26]");
-            URC_Text_tooltip[26] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[26]");
+            URC_Text[26] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[26]");
+            URC_Text_tooltip[26] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[26]");
 
-            URC_Text[27] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[27]");
-            URC_Text_tooltip[27] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[27]");
+            URC_Text[27] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[27]");
+            URC_Text_tooltip[27] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[27]");
 
-            URC_Text[28] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[28]");
-            URC_Text_tooltip[28] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[28]");
+            URC_Text[28] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[28]");
+            URC_Text_tooltip[28] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[28]");
 
-            URC_Text[29] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[29]");
-            URC_Text_tooltip[29] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[29]");
+            URC_Text[29] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[29]");
+            URC_Text_tooltip[29] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[29]");
 
-            URC_Text[30] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[30]");
-            URC_Text_tooltip[30] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[30]");
+            URC_Text[30] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[30]");
+            URC_Text_tooltip[30] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[30]");
 
-            URC_Text[31] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[31]");
-            URC_Text_tooltip[31] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[31]");
+            URC_Text[31] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[31]");
+            URC_Text_tooltip[31] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[31]");
 
-            URC_Text[32] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[32]");
-            URC_Text_tooltip[32] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[32]");
+            URC_Text[32] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[32]");
+            URC_Text_tooltip[32] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[32]");
 
-            URC_Text[33] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[33]");
-            URC_Text_tooltip[33] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[33]");
+            URC_Text[33] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[33]");
+            URC_Text_tooltip[33] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[33]");
 
-            URC_Text[34] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[34]");
-            URC_Text_tooltip[34] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[34]");
+            URC_Text[34] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[34]");
+            URC_Text_tooltip[34] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[34]");
 
-            URC_Text[35] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[35]");
-            URC_Text_tooltip[35] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[35]");
+            URC_Text[35] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[35]");
+            URC_Text_tooltip[35] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[35]");
 
-            URC_Text[36] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[36]");
-            URC_Text_tooltip[36] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[36]");
+            URC_Text[36] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[36]");
+            URC_Text_tooltip[36] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[36]");
 
-            URC_Text[37] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[37]");
-            URC_Text_tooltip[37] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[37]");
+            URC_Text[37] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[37]");
+            URC_Text_tooltip[37] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[37]");
 
-            URC_Text[38] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[38]");
-            URC_Text_tooltip[38] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[38]");
+            URC_Text[38] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[38]");
+            URC_Text_tooltip[38] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[38]");
 
-            URC_Text[39] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[39]");
-            URC_Text_tooltip[39] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[39]");
+            URC_Text[39] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[39]");
+            URC_Text_tooltip[39] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[39]");
 
-            URC_Text[40] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[40]");
-            URC_Text_tooltip[40] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[40]");
+            URC_Text[40] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[40]");
+            URC_Text_tooltip[40] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[40]");
 
-            URC_Text[41] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[41]");
-            URC_Text_tooltip[41] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[41]");
+            URC_Text[41] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[41]");
+            URC_Text_tooltip[41] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[41]");
 
-            URC_Text[42] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[42]");
-            URC_Text_tooltip[42] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[42]");
+            URC_Text[42] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[42]");
+            URC_Text_tooltip[42] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[42]");
 
-			URC_Text[43] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text[43]");
-			URC_Text_tooltip[43] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_Text_tooltip[43]");
+			URC_Text[43] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text[43]");
+			URC_Text_tooltip[43] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_Text_tooltip[43]");
 
-            URC_USER_PROMPT[0] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[0]");
-            URC_USER_PROMPT[1] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[1]");
-            URC_USER_PROMPT[2] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[2]");
-            URC_USER_PROMPT[3] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[3]");
-            URC_USER_PROMPT[4] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[4]");
-            URC_USER_PROMPT[5] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[5]");
-            URC_USER_PROMPT[6] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[6]");
-            URC_USER_PROMPT[7] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[7]");
-            URC_USER_PROMPT[8] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[8]");
-            URC_USER_PROMPT[9] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[9]");
-            URC_USER_PROMPT[10] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[10]");
-            URC_USER_PROMPT[11] = eval("window.Urcomments" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[11]");
+            URC_USER_PROMPT[0] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[0]");
+            URC_USER_PROMPT[1] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[1]");
+            URC_USER_PROMPT[2] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[2]");
+            URC_USER_PROMPT[3] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[3]");
+            URC_USER_PROMPT[4] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[4]");
+            URC_USER_PROMPT[5] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[5]");
+            URC_USER_PROMPT[6] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[6]");
+            URC_USER_PROMPT[7] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[7]");
+            URC_USER_PROMPT[8] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[8]");
+            URC_USER_PROMPT[9] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[9]");
+            URC_USER_PROMPT[10] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[10]");
+            URC_USER_PROMPT[11] = eval("window.WMEMentor" + SelectedBoilerPlateCreator + "URC_USER_PROMPT[11]");
 
 
         } catch (err) {
@@ -920,11 +915,11 @@ function URComments_bootstrap() {
             $("#sidepanel-Comments").html('');
             //reload the content
             ChangeLanguage = true;
-            URComments_bootstrap();
+            WMEMentor_bootstrap();
             return false;
         }
     }
-    URComments_init();
+    WMEMentor_init();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////
@@ -932,13 +927,13 @@ function URComments_bootstrap() {
 //////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function URComments_init() {
+function WMEMentor_init() {
     //urcToConsole("Start init 1");
 
-    //create the URComments object
-    var URComments = {};
+    //create the WMEMentor object
+    var WMEMentor = {};
 
-    URComments.init = function() {
+    WMEMentor.init = function() {
         //if we are changing the language do not redraw the tab		
         if (ChangeLanguage === false) {
 
@@ -956,13 +951,13 @@ function URComments_init() {
             g = g + '#sidepanel-Comments label { cursor:pointer; margin:0px 0px 0px; vertical-align: middle;font-size: 10px;}';
 
             //css for checkboxes
-            g = g + '#sidepanel-Comments .URCommentsCheckbox { text-decoration:none; cursor:pointer; color: #000000; margin:0px 0px 0px; vertical-align: middle; font-size: 12px;}';
+            g = g + '#sidepanel-Comments .WMEMentorCheckbox { text-decoration:none; cursor:pointer; color: #000000; margin:0px 0px 0px; vertical-align: middle; font-size: 12px;}';
 
             //css for our comments,
-            g = g + '#sidepanel-Comments .URComments { text-decoration:none; cursor:pointer; color: #000000; font-size: 12px;}'; // margin-top: 5px;
+            g = g + '#sidepanel-Comments .WMEMentor { text-decoration:none; cursor:pointer; color: #000000; font-size: 12px;}'; // margin-top: 5px;
 
             //css for our uro presets,
-            g = g + '#sidepanel-Comments .URCommentsPresets { text-decoration:none; cursor:pointer; color: #000000; font-size: 10px;}';
+            g = g + '#sidepanel-Comments .WMEMentorPresets { text-decoration:none; cursor:pointer; color: #000000; font-size: 10px;}';
 
             //css for our nav tabs,
             g = g + '#comments-tab22 ul { font-size: 12px; padding: 0px;}';
@@ -1012,7 +1007,7 @@ function URComments_init() {
             //append our css to the head
             $("head").append($('<style type="text/css">' + g + '</style>'));
 
-            //urcToConsole("Start adding the URComments's tab");
+            //urcToConsole("Start adding the WMEMentor's tab");
             //add comments tab
             var b = $('<li><a href="#sidepanel-Comments" data-toggle="tab" id="CommentsTab">URC</a> </li> ');
             //i had to switch to first() becuase someone was reusing the nav tabs in another script and this would cause my tab to go inside theirs!
@@ -1024,7 +1019,7 @@ function URComments_init() {
             //add the content to the comments tab
             //Comment tab header and zoom out button
             var c = "";
-            c = c + '<div class="tab-pane" id="sidepanel-Comments" ><div class="URComments"></div></div>';
+            c = c + '<div class="tab-pane" id="sidepanel-Comments" ><div class="WMEMentor"></div></div>';
             //$("h2 + ul.nav-tabs + .tab-content").append(c);
 			//$("ul.nav-tabs + .tab-content").append(c);
 			//$("#user-info > div.tab-content").append(c);
@@ -1038,15 +1033,15 @@ function URComments_init() {
 
 
         var c = "";
-        c = c + '<div style="position: absolute; left: 20px;"><img src="' + UrCommentsIcon + '" style="cursor:default;"></div>';
-        c = c + '<div style="position: absolute; left: 70px;"><b>' + GM_info.script.name + " " + URCommentVersion + '</b>';
+        c = c + '<div style="position: absolute; left: 20px;"><img src="' + WMEMentorIcon + '" style="cursor:default;"></div>';
+        c = c + '<div style="position: absolute; left: 70px;"><b>' + GM_info.script.name + " " + WMEMentorVersion + '</b>';
         c = c + '<br>';
-        c = c + '<a id="URCommentZoomOutButton" class="URComments" Title="' + URC_Text_tooltip[0] + '">' + URC_Text[0] + '</a>';
+        c = c + '<a id="WMEMentorZoomOutButton" class="WMEMentor" Title="' + URC_Text_tooltip[0] + '">' + URC_Text[0] + '</a>';
         c = c + '<br>';
-        c = c + '<a id="URCommentZoomOutButton2" class="URComments" Title="' + URC_Text_tooltip[1] + '">' + URC_Text[1] + '</a>';
+        c = c + '<a id="WMEMentorZoomOutButton2" class="WMEMentor" Title="' + URC_Text_tooltip[1] + '">' + URC_Text[1] + '</a>';
         c = c + '<br>';
-        c = c + '<a id="URCommentZoomOutButton3" class="URComments" Title="' + URC_Text_tooltip[2] + '">' + URC_Text[2] + '</a>';
-        c = c + '<div id="URCWazeReloadMap" title="' + URC_Text_tooltip[3] + '" data-original-title="" class="icon-repeat reload-button URComments" content="" style="font-size: 20px; position: absolute; left: 140px; top: 22px;"></div>';
+        c = c + '<a id="WMEMentorZoomOutButton3" class="WMEMentor" Title="' + URC_Text_tooltip[2] + '">' + URC_Text[2] + '</a>';
+        c = c + '<div id="URCWazeReloadMap" title="' + URC_Text_tooltip[3] + '" data-original-title="" class="icon-repeat reload-button WMEMentor" content="?" style="font-size: 20px; position: absolute; left: 140px; top: 22px;"></div>';
 
         //UR count
         //c = c + '<div Title="Number of UR Shown" id="URCount" style="position: absolute; top: 110px; left: 30px; font-size: 8px; width: 55px;"></div>';
@@ -1055,27 +1050,27 @@ function URComments_init() {
         $("#sidepanel-Comments").append(c);
 
         //add the map zoom out handlers
-        $("#URCommentZoomOutButton").click(URComments.SetZoomCloseUR(0, "CloseUR"));
-        //$("#URCommentZoomOutButton").click(URComments.SetZoomCloseUR(1, "CloseUR"));
-        $("#URCommentZoomOutButton2").click(URComments.SetZoomCloseUR(2, "CloseUR"));
-        $("#URCommentZoomOutButton3").click(URComments.SetZoomCloseUR(3, "CloseUR"));
+        $("#WMEMentorZoomOutButton").click(WMEMentor.SetZoomCloseUR(0, "CloseUR"));
+        //$("#WMEMentorZoomOutButton").click(WMEMentor.SetZoomCloseUR(1, "CloseUR"));
+        $("#WMEMentorZoomOutButton2").click(WMEMentor.SetZoomCloseUR(2, "CloseUR"));
+        $("#WMEMentorZoomOutButton3").click(WMEMentor.SetZoomCloseUR(3, "CloseUR"));
 
 
         //add the map reload handler
-        $("#URCWazeReloadMap").click(URComments.AutoReloadMapOnComment);
+        $("#URCWazeReloadMap").click(WMEMentor.AutoReloadMapOnComment);
 
         c = '<div id="comments-tab22" class="active" style="padding-top: 90px;">';
         c = c + '	<ul class="nav nav-tabs">';
-        c = c + '		<li class="active"><a data-toggle="tab" href="#sidepanel-URComments-list">' + URC_Text[5] + '</a></li>';
-        c = c + '		<li><a data-toggle="tab" href="#sidepanel-URComments-URO-Presets">' + URC_Text[6] + '</a></li>';
-        c = c + '		<li><a data-toggle="tab" href="#sidepanel-URComments-settings">' + URC_Text[7] + '</a></li>';
+        c = c + '		<li class="active"><a data-toggle="tab" href="#sidepanel-WMEMentor-list">' + URC_Text[5] + '</a></li>';
+        c = c + '		<li><a data-toggle="tab" href="#sidepanel-WMEMentor-URO-Presets">' + URC_Text[6] + '</a></li>';
+        c = c + '		<li><a data-toggle="tab" href="#sidepanel-WMEMentor-settings">' + URC_Text[7] + '</a></li>';
         c = c + '	</ul>';
         c = c + '	<div class="tab-content">'; // style="padding: 10px 1px 1px 10px !important;"
-        c = c + '		<div class="tab-pane active" id="sidepanel-URComments-list">';
+        c = c + '		<div class="tab-pane active" id="sidepanel-WMEMentor-list">';
         c = c + '		</div>';
-        c = c + '		<div class="tab-pane" id="sidepanel-URComments-URO-Presets">';
+        c = c + '		<div class="tab-pane" id="sidepanel-WMEMentor-URO-Presets">';
         c = c + '		</div>';
-        c = c + '		<div class="tab-pane" id="sidepanel-URComments-settings">';
+        c = c + '		<div class="tab-pane" id="sidepanel-WMEMentor-settings">';
         c = c + '		</div>';
         c = c + '	</div>';
         c = c + '</div>';
@@ -1090,212 +1085,212 @@ function URComments_init() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         d = $('<a target="_blank" Title="' + URC_Text_tooltip[8] + '" href="' + URC_URL[8] + '">' + URC_Text[8] + '<a/><br><br>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
 
-        //enable or disable urc filtering URCommentsFilterEnabled
-        d = $('<label Title="' + URC_Text_tooltip[9] + '"><input type="checkbox" id="URCommentsFilterEnabled" class="URCommentsCheckbox"> ' + URC_Text[9] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsFilterEnabled").click(function() {
-            $(localStorage.setItem('URCommentsFilterEnabled', URCommentsFilterEnabled.checked));
+        //enable or disable urc filtering WMEMentorFilterEnabled
+        d = $('<label Title="' + URC_Text_tooltip[9] + '"><input type="checkbox" id="WMEMentorFilterEnabled" class="WMEMentorCheckbox"> ' + URC_Text[9] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorFilterEnabled").click(function() {
+            $(localStorage.setItem('WMEMentorFilterEnabled', WMEMentorFilterEnabled.checked));
 
-            //if(URCommentsFilterEnabled.checked == true){
-            setTimeout(URComments.FilterURs('filterenabled'), 0);
+            //if(WMEMentorFilterEnabled.checked == true){
+            setTimeout(WMEMentor.FilterURs('filterenabled'), 0);
             //}
         });
 
-        var avdd = localStorage.getItem('URCommentsFilterEnabled');
+        var avdd = localStorage.getItem('WMEMentorFilterEnabled');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsFilterEnabled").prop('checked', eval(avdd));
+        $("#WMEMentorFilterEnabled").prop('checked', eval(avdd));
 
         //enable or disable ur pill counts
-        d = $('<label Title="' + URC_Text_tooltip[10] + '"><input type="checkbox" id="URCommentsPillEnabled" class="URCommentsCheckbox"> ' + URC_Text[10] + '</input></label><br><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsPillEnabled").click(function() {
-            $(localStorage.setItem('URCommentsPillEnabled', URCommentsPillEnabled.checked));
+        d = $('<label Title="' + URC_Text_tooltip[10] + '"><input type="checkbox" id="WMEMentorPillEnabled" class="WMEMentorCheckbox"> ' + URC_Text[10] + '</input></label><br><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorPillEnabled").click(function() {
+            $(localStorage.setItem('WMEMentorPillEnabled', WMEMentorPillEnabled.checked));
 
-            //if(URCommentsPillEnabled.checked == true){
-            setTimeout(URComments.FilterURs('filterenabled'), 0);
+            //if(WMEMentorPillEnabled.checked == true){
+            setTimeout(WMEMentor.FilterURs('filterenabled'), 0);
             //}
         });
 
-        var avdd = localStorage.getItem('URCommentsPillEnabled');
+        var avdd = localStorage.getItem('WMEMentorPillEnabled');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsPillEnabled").prop('checked', eval(avdd));
+        $("#WMEMentorPillEnabled").prop('checked', eval(avdd));
 
         //hide inbetween ur
-        d = $('<label Title="' + URC_Text_tooltip[12] + '"><input type="checkbox" id="URCommentsHideInbetween" class="URCommentsCheckbox"> ' + URC_Text[12] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideInbetween").click(function() {
-            $(localStorage.setItem('URCommentsHideInbetween', URCommentsHideInbetween.checked));
-            setTimeout(URComments.FilterURs('hideInbetween'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[12] + '"><input type="checkbox" id="WMEMentorHideInbetween" class="WMEMentorCheckbox"> ' + URC_Text[12] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideInbetween").click(function() {
+            $(localStorage.setItem('WMEMentorHideInbetween', WMEMentorHideInbetween.checked));
+            setTimeout(WMEMentor.FilterURs('hideInbetween'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideInbetween');
+        var avdd = localStorage.getItem('WMEMentorHideInbetween');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsHideInbetween").prop('checked', eval(avdd));
+        $("#WMEMentorHideInbetween").prop('checked', eval(avdd));
 
         //hide UR that are not "mine"
-        d = $('<label Title="' + URC_Text_tooltip[13] + '"><input type="checkbox" id="URCommentsHideNotMyUR" class="URCommentsCheckbox"> ' + URC_Text[13] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideNotMyUR").click(function() {
-            $(localStorage.setItem('URCommentsHideNotMyUR', URCommentsHideNotMyUR.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideNotMyUR'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[13] + '"><input type="checkbox" id="WMEMentorHideNotMyUR" class="WMEMentorCheckbox"> ' + URC_Text[13] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideNotMyUR").click(function() {
+            $(localStorage.setItem('WMEMentorHideNotMyUR', WMEMentorHideNotMyUR.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideNotMyUR'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideNotMyUR');
+        var avdd = localStorage.getItem('WMEMentorHideNotMyUR');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsHideNotMyUR").prop('checked', eval(avdd));
+        $("#WMEMentorHideNotMyUR").prop('checked', eval(avdd));
 
         //show UR that have gone past the close day setting
-        d = $('<label Title="' + URC_Text_tooltip[14] + '"><input type="checkbox" id="URCommentsShowPastClose" class="URCommentsCheckbox"> ' + URC_Text[14] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsShowPastClose").click(function() {
-            $(localStorage.setItem('URCommentsShowPastClose', URCommentsShowPastClose.checked));
-            setTimeout(URComments.FilterURs('URCommentsShowPastClose'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[14] + '"><input type="checkbox" id="WMEMentorShowPastClose" class="WMEMentorCheckbox"> ' + URC_Text[14] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorShowPastClose").click(function() {
+            $(localStorage.setItem('WMEMentorShowPastClose', WMEMentorShowPastClose.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorShowPastClose'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsShowPastClose');
+        var avdd = localStorage.getItem('WMEMentorShowPastClose');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsShowPastClose").prop('checked', eval(avdd));
+        $("#WMEMentorShowPastClose").prop('checked', eval(avdd));
 
         //hide reminders
-        d = $('<label Title="' + URC_Text_tooltip[15] + '"><input type="checkbox" id="URCommentsHideReminderNeeded" class="URCommentsCheckbox"> ' + URC_Text[15] + '</input></label><br><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideReminderNeeded").click(function() {
-            $(localStorage.setItem('URCommentsHideReminderNeeded', URCommentsHideReminderNeeded.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideReminderNeeded'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[15] + '"><input type="checkbox" id="WMEMentorHideReminderNeeded" class="WMEMentorCheckbox"> ' + URC_Text[15] + '</input></label><br><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideReminderNeeded").click(function() {
+            $(localStorage.setItem('WMEMentorHideReminderNeeded', WMEMentorHideReminderNeeded.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideReminderNeeded'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideReminderNeeded');
+        var avdd = localStorage.getItem('WMEMentorHideReminderNeeded');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideReminderNeeded").prop('checked', eval(avdd));
+        $("#WMEMentorHideReminderNeeded").prop('checked', eval(avdd));
 
         //hide replies
-        d = $('<label Title="' + URC_Text_tooltip[16] + '"><input type="checkbox" id="URCommentsHideReplies" class="URCommentsCheckbox"> ' + URC_Text[16] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideReplies").click(function() {
-            $(localStorage.setItem('URCommentsHideReplies', URCommentsHideReplies.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideReplies'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[16] + '"><input type="checkbox" id="WMEMentorHideReplies" class="WMEMentorCheckbox"> ' + URC_Text[16] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideReplies").click(function() {
+            $(localStorage.setItem('WMEMentorHideReplies', WMEMentorHideReplies.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideReplies'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideReplies');
+        var avdd = localStorage.getItem('WMEMentorHideReplies');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideReplies").prop('checked', eval(avdd));
+        $("#WMEMentorHideReplies").prop('checked', eval(avdd));
 
         //hide older than 7 day
-        d = $('<label Title="' + URC_Text_tooltip[17] + '"><input type="checkbox" id="URCommentsHideCloseNeeded" class="URCommentsCheckbox"> ' + URC_Text[17] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideCloseNeeded").click(function() {
-            $(localStorage.setItem('URCommentsHideCloseNeeded', URCommentsHideCloseNeeded.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideCloseNeeded'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[17] + '"><input type="checkbox" id="WMEMentorHideCloseNeeded" class="WMEMentorCheckbox"> ' + URC_Text[17] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideCloseNeeded").click(function() {
+            $(localStorage.setItem('WMEMentorHideCloseNeeded', WMEMentorHideCloseNeeded.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideCloseNeeded'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideCloseNeeded');
+        var avdd = localStorage.getItem('WMEMentorHideCloseNeeded');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideCloseNeeded").prop('checked', eval(avdd));
+        $("#WMEMentorHideCloseNeeded").prop('checked', eval(avdd));
 
         //hide initial (zero comments)
-        d = $('<label Title="' + URC_Text_tooltip[18] + '"><input type="checkbox" id="URCommentsHideInital" class="URCommentsCheckbox"> ' + URC_Text[18] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideInital").click(function() {
-            $(localStorage.setItem('URCommentsHideInital', URCommentsHideInital.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideInital'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[18] + '"><input type="checkbox" id="WMEMentorHideInital" class="WMEMentorCheckbox"> ' + URC_Text[18] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideInital").click(function() {
+            $(localStorage.setItem('WMEMentorHideInital', WMEMentorHideInital.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideInital'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideInital');
+        var avdd = localStorage.getItem('WMEMentorHideInital');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideInital").prop('checked', eval(avdd));
+        $("#WMEMentorHideInital").prop('checked', eval(avdd));
 
         //Hide UR that do not have descriptions
-        d = $('<label Title="' + URC_Text_tooltip[19] + '"><input type="checkbox" id="URCommentsHideWithoutDescript" class="URCommentsCheckbox"> ' + URC_Text[19] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideWithoutDescript").click(function() {
-            $(localStorage.setItem('URCommentsHideWithoutDescript', URCommentsHideWithoutDescript.checked));
-            setTimeout(URComments.FilterURs('HideWithoutDescript'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[19] + '"><input type="checkbox" id="WMEMentorHideWithoutDescript" class="WMEMentorCheckbox"> ' + URC_Text[19] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideWithoutDescript").click(function() {
+            $(localStorage.setItem('WMEMentorHideWithoutDescript', WMEMentorHideWithoutDescript.checked));
+            setTimeout(WMEMentor.FilterURs('HideWithoutDescript'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideWithoutDescript');
+        var avdd = localStorage.getItem('WMEMentorHideWithoutDescript');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideWithoutDescript").prop('checked', eval(avdd));
+        $("#WMEMentorHideWithoutDescript").prop('checked', eval(avdd));
 
         //Hide UR that have descriptions
-        d = $('<label Title="' + URC_Text_tooltip[20] + '"><input type="checkbox" id="URCommentsHideWithDescript" class="URCommentsCheckbox"> ' + URC_Text[20] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideWithDescript").click(function() {
-            $(localStorage.setItem('URCommentsHideWithDescript', URCommentsHideWithDescript.checked));
-            setTimeout(URComments.FilterURs('HideWithDescript'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[20] + '"><input type="checkbox" id="WMEMentorHideWithDescript" class="WMEMentorCheckbox"> ' + URC_Text[20] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideWithDescript").click(function() {
+            $(localStorage.setItem('WMEMentorHideWithDescript', WMEMentorHideWithDescript.checked));
+            setTimeout(WMEMentor.FilterURs('HideWithDescript'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideWithDescript');
+        var avdd = localStorage.getItem('WMEMentorHideWithDescript');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideWithDescript").prop('checked', eval(avdd));
+        $("#WMEMentorHideWithDescript").prop('checked', eval(avdd));
 
         //hide closed
-        d = $('<label Title="' + URC_Text_tooltip[21] + '"><input type="checkbox" id="URCommentsHideClosed" class="URCommentsCheckbox"> ' + URC_Text[21] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideClosed").click(function() {
-            $(localStorage.setItem('URCommentsHideClosed', URCommentsHideClosed.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideClosed'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[21] + '"><input type="checkbox" id="WMEMentorHideClosed" class="WMEMentorCheckbox"> ' + URC_Text[21] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideClosed").click(function() {
+            $(localStorage.setItem('WMEMentorHideClosed', WMEMentorHideClosed.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideClosed'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideClosed');
+        var avdd = localStorage.getItem('WMEMentorHideClosed');
         if (avdd === null) {
             avdd = true;
         }
-        $("#URCommentsHideClosed").prop('checked', eval(avdd));
+        $("#WMEMentorHideClosed").prop('checked', eval(avdd));
 
         //hide notes
-        d = $('<label Title="' + URC_Text_tooltip[22] + '"><input type="checkbox" id="URCommentsHideNotes" class="URCommentsCheckbox"> ' + URC_Text[22] + '</input></label><br><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentsHideNotes").click(function() {
-            $(localStorage.setItem('URCommentsHideNotes', URCommentsHideNotes.checked));
-            setTimeout(URComments.FilterURs('URCommentsHideNotes'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[22] + '"><input type="checkbox" id="WMEMentorHideNotes" class="WMEMentorCheckbox"> ' + URC_Text[22] + '</input></label><br><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorHideNotes").click(function() {
+            $(localStorage.setItem('WMEMentorHideNotes', WMEMentorHideNotes.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorHideNotes'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsHideNotes');
+        var avdd = localStorage.getItem('WMEMentorHideNotes');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsHideNotes").prop('checked', eval(avdd));
+        $("#WMEMentorHideNotes").prop('checked', eval(avdd));
 
         //days used to filter UR (reminder days / close days)
         var d = $('<form>' + URC_Text[23] + '<input type="text" id="ReminderDays" style="width: 35px;"><br>' + URC_Text[24] + ' <input type="text" id="CloseDays" style="width: 35px;"><br> </form><br><br><br><br><br><br>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
 
         //load reminder days
         $('#ReminderDays').val(localStorage.getItem('ReminderDays'));
@@ -1314,18 +1309,18 @@ function URComments_init() {
         //reminder days verification
         $("#ReminderDays").change(function() {
             $(localStorage.setItem('ReminderDays', $('#ReminderDays').val()));
-            setTimeout(URComments.FilterURs('ReminderDaysChange'), 0);
+            setTimeout(WMEMentor.FilterURs('ReminderDaysChange'), 0);
         });
 
         //close days verification
         $("#CloseDays").change(function() {
             if ($('#CloseDays').val() < 1) { //|| $('#CloseDays').val() <= $('#ReminderDays').val()
                 $('#CloseDays').val('7');
-                alert(URC_USER_PROMPT[3]); //"URComments you can not set close days to zero days";
+                alert(URC_USER_PROMPT[3]); //"WMEMentor you can not set close days to zero days";
             } else {
                 //save
                 $(localStorage.setItem('CloseDays', $('#CloseDays').val()));
-                setTimeout(URComments.FilterURs('CloseDaysChange'), 0);
+                setTimeout(WMEMentor.FilterURs('CloseDaysChange'), 0);
             }
         });
 
@@ -1341,14 +1336,14 @@ function URComments_init() {
         //setup the comment color var
         var colorrr = "CC0000";
         var Title = "";
-        var URCommentURLNote = "";
+        var WMEMentorURLNote = "";
 		var SelectedBoilerPlateCreator = localStorage.getItem('BoilerPlateCreators');
         //go over the array and generate comment divs
-        for (var i = 0; i < URCommentsArray.length; i = i + 3) {
-            //urcToConsole("Create div for - " + URCommentsArray[i] + " " + URCommentsArray[i + 2]);
+        for (var i = 0; i < WMEMentorArray.length; i = i + 3) {
+            //urcToConsole("Create div for - " + WMEMentorArray[i] + " " + WMEMentorArray[i + 2]);
 
             // make the URStatus lower case
-            var URStatus = (URCommentsArray[i + 2]).toLowerCase();
+            var URStatus = (WMEMentorArray[i + 2]).toLowerCase();
 
             if (URStatus === "open") {
                 //black
@@ -1367,16 +1362,16 @@ function URComments_init() {
             //escaping titles and comments with escapeHtml(Comment) so we can display items with special char as html;
             //generate the comment links
 
-            Title = URCommentsArray[i];
-            var Comment = URComments.escapeHtml(URCommentsArray[i + 1]);
+            Title = WMEMentorArray[i];
+            var Comment = WMEMentor.escapeHtml(WMEMentorArray[i + 1]);
 
             //normal comment link
-            d = '<div><a id="URComments-comment' + CurrentIndex + '" class="URComments" style="color:' + colorrr + '" Title="Title: ' + Title + ' Action: ' + URStatus + '; Comment: ' + Comment + ' ">' + Title + '</a>';
+            d = '<div><a id="WMEMentor-comment' + CurrentIndex + '" class="WMEMentor" style="color:' + colorrr + '" Title="Title: ' + Title + ' Action: ' + URStatus + '; Comment: ' + Comment + ' ">' + Title + '</a>';
             //$("#sidepanel-Comments").append(d);
 
-            if (URCommentsArray[i] === URCommentsArray[CloseNotIdentifiedPosistion] && localStorage.getItem('DBLClk7DCAutoSend') == "yes" || localStorage.getItem('DBLClkAll') == "yes") {
-                if (URCommentsArray[i] !== "<br>") {
-                    d = d + '<a id="URComments-commentDBLCLK' + CurrentIndex + '" class="URComments" style="color:' + colorrr + '" Title="' + URC_Text_tooltip[42] + Title + '"> ' + URC_Text[42] + '</a>'; //double click links
+            if (WMEMentorArray[i] === WMEMentorArray[CloseNotIdentifiedPosistion] && localStorage.getItem('DBLClk7DCAutoSend') == "yes" || localStorage.getItem('DBLClkAll') == "yes") {
+                if (WMEMentorArray[i] !== "<br>") {
+                    d = d + '<a id="WMEMentor-commentDBLCLK' + CurrentIndex + '" class="WMEMentor" style="color:' + colorrr + '" Title="' + URC_Text_tooltip[42] + Title + '"> ' + URC_Text[42] + '</a>'; //double click links
 
                 }
             }
@@ -1384,26 +1379,26 @@ function URComments_init() {
             d = d + '</div>';
 
             //add comment to list
-            $("#sidepanel-URComments-list").append(d);
+            $("#sidepanel-WMEMentor-list").append(d);
 
             //set urID to zero so we don't freak out the functions expecting a UR ID
             urID = 0;
 
             //create the click function for each comment
-            $("#URComments-comment" + CurrentIndex).click(URComments.AutoZoomIN(URCommentsArray[i], URCommentsArray[i + 1], URStatus, urID));
+            $("#WMEMentor-comment" + CurrentIndex).click(WMEMentor.AutoZoomIN(WMEMentorArray[i], WMEMentorArray[i + 1], URStatus, urID));
 
             //create the double click function for each comment
-            if (URCommentsArray[i] !== "<br>" && URCommentsArray[i] === URCommentsArray[CloseNotIdentifiedPosistion] && localStorage.getItem('DBLClk7DCAutoSend') == "yes" || localStorage.getItem('DBLClkAll') == "yes") {
+            if (WMEMentorArray[i] !== "<br>" && WMEMentorArray[i] === WMEMentorArray[CloseNotIdentifiedPosistion] && localStorage.getItem('DBLClk7DCAutoSend') == "yes" || localStorage.getItem('DBLClkAll') == "yes") {
                 //use this to click send automatically
-                if (URCommentsArray[i] !== "<br>") {
-                    $("#URComments-commentDBLCLK" + CurrentIndex).dblclick(URComments.AutoZoomIN(URCommentsArray[i], URCommentsArray[i + 1], URStatus, urID, "AutoSendComment"));
+                if (WMEMentorArray[i] !== "<br>") {
+                    $("#WMEMentor-commentDBLCLK" + CurrentIndex).dblclick(WMEMentor.AutoZoomIN(WMEMentorArray[i], WMEMentorArray[i + 1], URStatus, urID, "AutoSendComment"));
                 }
 
             }
 			
 			//add a keyboardshortcut for each comment
-			if (URCommentsArray[i] !== "<br>") {
-				WMEKSRegisterKeyboardShortcut('URC' + SelectedBoilerPlateCreator, 'URComments ' + SelectedBoilerPlateCreator, 'URC' + SelectedBoilerPlateCreator + 'Shortcut'+i, URCommentsArray[i], URComments.AutoZoomIN(URCommentsArray[i], URCommentsArray[i + 1], URStatus, urID), '-1'); //shortcut1
+			if (WMEMentorArray[i] !== "<br>") {
+				WMEKSRegisterKeyboardShortcut('URC' + SelectedBoilerPlateCreator, 'WMEMentor ' + SelectedBoilerPlateCreator, 'URC' + SelectedBoilerPlateCreator + 'Shortcut'+i, WMEMentorArray[i], WMEMentor.AutoZoomIN(WMEMentorArray[i], WMEMentorArray[i + 1], URStatus, urID), '-1'); //shortcut1
 			}
 			
             //inc the CurrentIndex
@@ -1412,7 +1407,7 @@ function URComments_init() {
 
         //add 2 br to the end of the list for lower resolution monitors
         d = '<br><br>';
-        $("#sidepanel-URComments-list").append(d);
+        $("#sidepanel-WMEMentor-list").append(d);
 
 		//load the saved keyboard shortcuts 
 		WMEKSLoadKeyboardShortcuts('URC' + SelectedBoilerPlateCreator);
@@ -1441,63 +1436,63 @@ function URComments_init() {
 
         /*
         //URO+ new ur with no description
-        var d = $('<div><a id="URONewNoDescription" class="URCommentsPresets" Title="Use URO+ to only show new requests without descriptions">URO+ New UR without descriptions</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URONewNoDescription").click(URComments.UROClearClicked('URONewNoDescription'));
+        var d = $('<div><a id="URONewNoDescription" class="WMEMentorPresets" Title="Use URO+ to only show new requests without descriptions">URO+ New UR without descriptions</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#URONewNoDescription").click(WMEMentor.UROClearClicked('URONewNoDescription'));
 
         //URO+ new ur
-        d = $('<div><a id="URCommentURONEW" class="URCommentsPresets" Title="Use URO+ to only show new requests or ones that have replies from the requestor">URO+ New requests / UR replies</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
-        $("#URCommentURONEW").click(URComments.UROClearClicked('UroShowNew'));
+        d = $('<div><a id="WMEMentorURONEW" class="WMEMentorPresets" Title="Use URO+ to only show new requests or ones that have replies from the requestor">URO+ New requests / UR replies</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
+        $("#WMEMentorURONEW").click(WMEMentor.UROClearClicked('UroShowNew'));
 
         //show no responses for reminders
-        d = $('<div><a id="URCommentURO4DayFollowUp" class="URCommentsPresets" Title="Use URO+ to only show URs that need a reminders message sent to them">URO+ Reminder message</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<div><a id="WMEMentorURO4DayFollowUp" class="WMEMentorPresets" Title="Use URO+ to only show URs that need a reminders message sent to them">URO+ Reminder message</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentURO4DayFollowUp").click(URComments.UROClearClicked('URO4DayFollowUp'));
+        $("#WMEMentorURO4DayFollowUp").click(WMEMentor.UROClearClicked('URO4DayFollowUp'));
 
         //show no responses for 7 days needs closing
-        d = $('<div><a id="URCommentURO7Day" class="URCommentsPresets" Title="Use URO+ to only show URs that are older than 7 days and need to be closed">URO+ 7 Day</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<div><a id="WMEMentorURO7Day" class="WMEMentorPresets" Title="Use URO+ to only show URs that are older than 7 days and need to be closed">URO+ 7 Day</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentURO7Day").click(URComments.UROClearClicked('URO7Day'));
+        $("#WMEMentorURO7Day").click(WMEMentor.UROClearClicked('URO7Day'));
 
         //show no responses for 8 days needs closing
-        d = $('<div><a id="URCommentURO8Day" class="URCommentsPresets" Title="Use URO+ to only show URs that are older than 8 days and need to be closed">URO+ 8 Day</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<div><a id="WMEMentorURO8Day" class="WMEMentorPresets" Title="Use URO+ to only show URs that are older than 8 days and need to be closed">URO+ 8 Day</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentURO8Day").click(URComments.UROClearClicked('URO8Day'));
+        $("#WMEMentorURO8Day").click(WMEMentor.UROClearClicked('URO8Day'));
 
         //show no responses for 10 days needs closing
-        d = $('<div><a id="URCommentURO10Day" class="URCommentsPresets" Title="Use URO+ to only show URs that are older than 10 days and need to be closed">URO+ 10 Day</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<div><a id="WMEMentorURO10Day" class="WMEMentorPresets" Title="Use URO+ to only show URs that are older than 10 days and need to be closed">URO+ 10 Day</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentURO10Day").click(URComments.UROClearClicked('URO10Day'));
+        $("#WMEMentorURO10Day").click(WMEMentor.UROClearClicked('URO10Day'));
 
         //show no responses for 24 Hour Notice now needs closing
-        d = $('<div><a id="URCommentURO24Hr" class="URCommentsPresets" Title="URO+ 8 day 24 Hour Notice. the idea behind this one is that on day 7 you will send 24 hour notices and then 24 hours later come back with this preset to find the ones that need closing">24 Hour Notice expermintal</a></div>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<div><a id="WMEMentorURO24Hr" class="WMEMentorPresets" Title="URO+ 8 day 24 Hour Notice. the idea behind this one is that on day 7 you will send 24 hour notices and then 24 hours later come back with this preset to find the ones that need closing">24 Hour Notice expermintal</a></div>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentURO24Hr").click(URComments.UROClearClicked('URO24Hr'));
+        $("#WMEMentorURO24Hr").click(WMEMentor.UROClearClicked('URO24Hr'));
 		*/
         //URO+ clear
-        //var d = $('<div><a id="URCommentUROclearUROFiltrs" class="URCommentsPresets" Title="Clears all of the checks boxes in URO’s URs tab, except for Do not apply state/age filters to tagged URs and if you have Only My URs enabled in URComments">URO+ Clear UR Filters</a></div>');
-        //$("#sidepanel-URComments-URO-Presets").append(d);
+        //var d = $('<div><a id="WMEMentorUROclearUROFiltrs" class="WMEMentorPresets" Title="Clears all of the checks boxes in URO's URs tab, except for Do not apply state/age filters to tagged URs and if you have Only My URs enabled in WMEMentor">URO+ Clear UR Filters</a></div>');
+        //$("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        //$("#URCommentUROclearUROFiltrs").click(URComments.UROClearClicked('UROclearUROFiltrs'));
+        //$("#WMEMentorUROclearUROFiltrs").click(WMEMentor.UROClearClicked('UROclearUROFiltrs'));
 
         /*
         //the predefined presets only show comments that the current user has commented on
-        d = $('<label Title="Use URO+ to only Show URs with comments from me"><input type="checkbox" id="URCommentUROOnlyMyUR" class="URCommentsCheckbox"> Only My URs</input></label><br>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<label Title="Use URO+ to only Show URs with comments from me"><input type="checkbox" id="WMEMentorUROOnlyMyUR" class="WMEMentorCheckbox"> Only My URs</input></label><br>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentUROOnlyMyUR").click(URComments.OnlyMyUR);
+        $("#WMEMentorUROOnlyMyUR").click(WMEMentor.OnlyMyUR);
 
         //the predefined presets only show comments that the current user has commented on
-        d = $('<label Title="Use URO+ to hide tagged pins. This setting will not be saved."><input type="checkbox" id="URCommentUROHideTagged" class="URCommentsCheckbox"> Temporarily hide tagged pins</input></label><br><br>');
-        $("#sidepanel-URComments-URO-Presets").append(d);
+        d = $('<label Title="Use URO+ to hide tagged pins. This setting will not be saved."><input type="checkbox" id="WMEMentorUROHideTagged" class="WMEMentorCheckbox"> Temporarily hide tagged pins</input></label><br><br>');
+        $("#sidepanel-WMEMentor-URO-Presets").append(d);
         //create the callback function
-        $("#URCommentUROHideTagged").click(URComments.HideTagged("trash"));
+        $("#WMEMentorUROHideTagged").click(WMEMentor.HideTagged("trash"));
 		*/
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1507,76 +1502,76 @@ function URComments_init() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Auto Set ur comment on new URs
-        d = $('<label Title="' + URC_Text_tooltip[25] + '"><input type="checkbox" id="UrCommentAutoSetNewComment" class="URCommentsCheckbox"> ' + URC_Text[25] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[25] + '"><input type="checkbox" id="WMEMentorAutoSetNewComment" class="WMEMentorCheckbox"> ' + URC_Text[25] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentAutoSetNewComment").click(URComments.AutoSetNewComment);
+        $("#WMEMentorAutoSetNewComment").click(WMEMentor.AutoSetNewComment);
 
         //Auto Set ur reminder on new URs
-        d = $('<label Title="' + URC_Text_tooltip[26] + '"><input type="checkbox" id="UrCommentAutoSet4dayComment" class="URCommentsCheckbox"> ' + URC_Text[26] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[26] + '"><input type="checkbox" id="WMEMentorAutoSet4dayComment" class="WMEMentorCheckbox"> ' + URC_Text[26] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentAutoSet4dayComment").click(URComments.UrCommentAutoSet4dayComment);
+        $("#WMEMentorAutoSet4dayComment").click(WMEMentor.WMEMentorAutoSet4dayComment);
 
         //auto zoom in for new with no comments
-        d = $('<label Title="' + URC_Text_tooltip[27] + '"><input type="checkbox" id="UrCommentNewZoomIn" class="URCommentsCheckbox"> ' + URC_Text[27] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[27] + '"><input type="checkbox" id="WMEMentorNewZoomIn" class="WMEMentorCheckbox"> ' + URC_Text[27] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentNewZoomIn").click(URComments.NewZoomIn);
+        $("#WMEMentorNewZoomIn").click(WMEMentor.NewZoomIn);
 
         //auto center at current zoom for UR with comments
-        d = $('<label Title="' + URC_Text_tooltip[28] + '"><input type="checkbox" id="UrCommentWithCommentRecenter" class="URCommentsCheckbox"> ' + URC_Text[28] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[28] + '"><input type="checkbox" id="WMEMentorWithCommentRecenter" class="WMEMentorCheckbox"> ' + URC_Text[28] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentWithCommentRecenter").click(URComments.WithCommentRecenter);
+        $("#WMEMentorWithCommentRecenter").click(WMEMentor.WithCommentRecenter);
 
         //Auto Click open solved not Identified 
-        d = $('<label Title="' + URC_Text_tooltip[29] + '"><input type="checkbox" id="URCommentAutoClickURStatus" class="URCommentsCheckbox"> ' + URC_Text[29] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[29] + '"><input type="checkbox" id="WMEMentorAutoClickURStatus" class="WMEMentorCheckbox"> ' + URC_Text[29] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#URCommentAutoClickURStatus").click(URComments.AutoClickURStatus);
+        $("#WMEMentorAutoClickURStatus").click(WMEMentor.AutoClickURStatus);
 
-        //UrCommentSaveAfterComment
-        d = $('<label Title="' + URC_Text_tooltip[30] + '"><input type="checkbox" id="UrCommentSaveAfterComment" class="URCommentsCheckbox"> ' + URC_Text[30] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        //WMEMentoraveAfterComment
+        d = $('<label Title="' + URC_Text_tooltip[30] + '"><input type="checkbox" id="WMEMentoraveAfterComment" class="WMEMentorCheckbox"> ' + URC_Text[30] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentSaveAfterComment").click(URComments.SaveAfterComment);
+        $("#WMEMentoraveAfterComment").click(WMEMentor.SaveAfterComment);
 
         //auto close after sending comment replies
-        d = $('<label Title="' + URC_Text_tooltip[31] + '"><input type="checkbox" id="UrCommentAutoCloseComment" class="URCommentsCheckbox"> ' + URC_Text[31] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[31] + '"><input type="checkbox" id="WMEMentorAutoCloseComment" class="WMEMentorCheckbox"> ' + URC_Text[31] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentAutoCloseComment").click(URComments.AutoCloseComment);
+        $("#WMEMentorAutoCloseComment").click(WMEMentor.AutoCloseComment);
 
         //auto reload map after sending comment replies
-        //d = $('<label Title="' + URC_Text_tooltip[32] + '"><input type="checkbox" id="UrCommentAutoReloadAfterComment" class="URCommentsCheckbox"> ' + URC_Text[32] + '</input></label><br>');
-        //$("#sidepanel-URComments-settings").append(d);
+        //d = $('<label Title="' + URC_Text_tooltip[32] + '"><input type="checkbox" id="WMEMentorAutoReloadAfterComment" class="WMEMentorCheckbox"> ' + URC_Text[32] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        //$("#UrCommentAutoReloadAfterComment").click(URComments.AutoReloadAfterComment);
+        //$("#WMEMentorAutoReloadAfterComment").click(WMEMentor.AutoReloadAfterComment);
 
         //zoom out map after sending comment replies
-        d = $('<label Title="' + URC_Text_tooltip[33] + '"><input type="checkbox" id="UrCommentZoomOutAfterComment" class="URCommentsCheckbox"> ' + URC_Text[33] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[33] + '"><input type="checkbox" id="WMEMentorZoomOutAfterComment" class="WMEMentorCheckbox"> ' + URC_Text[33] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentZoomOutAfterComment").click(URComments.ZoomOutAfterComment);
+        $("#WMEMentorZoomOutAfterComment").click(WMEMentor.ZoomOutAfterComment);
 
-        //Auto switch to the URComments tab after page load
-        d = $('<label Title="' + URC_Text_tooltip[34] + '"><input type="checkbox" id="UrCommentAutoSwitchToURCommentsTab" class="URCommentsCheckbox"> ' + URC_Text[34] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        //Auto switch to the WMEMentor tab after page load
+        d = $('<label Title="' + URC_Text_tooltip[34] + '"><input type="checkbox" id="WMEMentorAutoSwitchToWMEMentorTab" class="WMEMentorCheckbox"> ' + URC_Text[34] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentAutoSwitchToURCommentsTab").click(URComments.AutoSwitchToURCommentsTab);
+        $("#WMEMentorAutoSwitchToWMEMentorTab").click(WMEMentor.AutoSwitchToWMEMentorTab);
 
         //Double clicking the 7 day close comment will auto send the 7day close comment
-        d = $('<label Title="' + URC_Text_tooltip[35] + '"><input type="checkbox" id="UrCommentDBLClk7DCAutoSend" class="URCommentsCheckbox"> ' + URC_Text[35] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[35] + '"><input type="checkbox" id="WMEMentorDBLClk7DCAutoSend" class="WMEMentorCheckbox"> ' + URC_Text[35] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentDBLClk7DCAutoSend").click(URComments.DBLClk7DCAutoSend);
+        $("#WMEMentorDBLClk7DCAutoSend").click(WMEMentor.DBLClk7DCAutoSend);
 
         //Double clicking comments will auto send comments
-        d = $('<label Title="' + URC_Text_tooltip[36] + '"><input type="checkbox" id="UrCommentDBLClkAll" class="URCommentsCheckbox"> ' + URC_Text[36] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
+        d = $('<label Title="' + URC_Text_tooltip[36] + '"><input type="checkbox" id="WMEMentorDBLClkAll" class="WMEMentorCheckbox"> ' + URC_Text[36] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create the callback function
-        $("#UrCommentDBLClkAll").click(URComments.DBLClkAll);
+        $("#WMEMentorDBLClkAll").click(WMEMentor.DBLClkAll);
 
         //go over  BoilerPlateCreatorsArray and generate the select   
         d = '<font style="font-size: 12px;">' + URC_Text[37] + ' <select id="BoilerPlateCreators" style="font-size: 12px; margin-top: 5px;" title="' + URC_Text_tooltip[37] + '">';
@@ -1585,91 +1580,91 @@ function URComments_init() {
             d = d + '<option style="font-size 12px;" value="' + BoilerPlateCreatorsArray[i] + '">' + BoilerPlateCreatorsArray[i] + '</option>';
         }
         d = d + "</select> </font><br><br>";
-        $("#sidepanel-URComments-settings").append(d);
+        $("#sidepanel-WMEMentor-settings").append(d);
         //create call back for the select
-        $("#BoilerPlateCreators").change(URComments.BoilerPlateCreatorsFunction);
+        $("#BoilerPlateCreators").change(WMEMentor.BoilerPlateCreatorsFunction);
 
-        //UrCommentDisableURDoneBtn			
-        d = $('<label Title="' + URC_Text_tooltip[38] + '"><input type="checkbox" id="UrCommentDisableURDoneBtn" class="URCommentsCheckbox"> ' + URC_Text[38] + '</input></label><br>');
-        //$("#sidepanel-URComments-list").append(d);
-        $("#sidepanel-URComments-settings").append(d);
-        $("#UrCommentDisableURDoneBtn").click(function() {
-            $(localStorage.setItem('UrCommentDisableURDoneBtn', UrCommentDisableURDoneBtn.checked));
+        //WMEMentorDisableURDoneBtn			
+        d = $('<label Title="' + URC_Text_tooltip[38] + '"><input type="checkbox" id="WMEMentorDisableURDoneBtn" class="WMEMentorCheckbox"> ' + URC_Text[38] + '</input></label><br>');
+        //$("#sidepanel-WMEMentor-list").append(d);
+        $("#sidepanel-WMEMentor-settings").append(d);
+        $("#WMEMentorDisableURDoneBtn").click(function() {
+            $(localStorage.setItem('WMEMentorDisableURDoneBtn', WMEMentorDisableURDoneBtn.checked));
         });
 
-        var avdd = localStorage.getItem('UrCommentDisableURDoneBtn');
+        var avdd = localStorage.getItem('WMEMentorDisableURDoneBtn');
         if (avdd === null) {
             avdd = true;
         }
-        $("#UrCommentDisableURDoneBtn").prop('checked', eval(avdd));
+        $("#WMEMentorDisableURDoneBtn").prop('checked', eval(avdd));
 
-        //URCommentURUnfollow
-        d = $('<label Title="' + URC_Text_tooltip[39] + '"><input type="checkbox" id="URCommentURUnfollow" class="URCommentsCheckbox"> ' + URC_Text[39] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
-        $("#URCommentURUnfollow").click(function() {
-            $(localStorage.setItem('URCommentURUnfollow', URCommentURUnfollow.checked));
+        //WMEMentorURUnfollow
+        d = $('<label Title="' + URC_Text_tooltip[39] + '"><input type="checkbox" id="WMEMentorURUnfollow" class="WMEMentorCheckbox"> ' + URC_Text[39] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
+        $("#WMEMentorURUnfollow").click(function() {
+            $(localStorage.setItem('WMEMentorURUnfollow', WMEMentorURUnfollow.checked));
         });
 
-        var avdd = localStorage.getItem('URCommentURUnfollow');
+        var avdd = localStorage.getItem('WMEMentorURUnfollow');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentURUnfollow").prop('checked', eval(avdd));
+        $("#WMEMentorURUnfollow").prop('checked', eval(avdd));
 
         //when on screen auto send my own reminders
-        d = $('<label Title="' + URC_Text_tooltip[40] + '"><input type="checkbox" id="URCommentsAutoSendMyReminders" class="URCommentsCheckbox"> ' + URC_Text[40] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
-        $("#URCommentsAutoSendMyReminders").click(function() {
+        d = $('<label Title="' + URC_Text_tooltip[40] + '"><input type="checkbox" id="WMEMentorAutoSendMyReminders" class="WMEMentorCheckbox"> ' + URC_Text[40] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
+        $("#WMEMentorAutoSendMyReminders").click(function() {
 
-            if (URCommentsAutoSendMyReminders.checked == true) {
-                var r = confirm(URC_USER_PROMPT[11]); //"URComments This will send reminders at the reminder days setting. This only happens when they are in your visible area. NOTE: when using this feature you should not leave any UR open unless you had a question that needed an answer from the wazer as this script will send those reminders. "
+            if (WMEMentorAutoSendMyReminders.checked == true) {
+                var r = confirm(URC_USER_PROMPT[11]); //"WMEMentor This will send reminders at the reminder days setting. This only happens when they are in your visible area. NOTE: when using this feature you should not leave any UR open unless you had a question that needed an answer from the wazer as this script will send those reminders. "
 
                 //this is where we reuse the r var this makes the nested ifs much more simple
                 if (r === true) {
-                    setTimeout(URComments.FilterURs('URCommentsAutoSendMyReminders'), 0);
+                    setTimeout(WMEMentor.FilterURs('WMEMentorAutoSendMyReminders'), 0);
                 } else {
-                    $("#URCommentsAutoSendMyReminders").prop('checked', false);
+                    $("#WMEMentorAutoSendMyReminders").prop('checked', false);
 
                 }
             }
-            $(localStorage.setItem('URCommentsAutoSendMyReminders', URCommentsAutoSendMyReminders.checked));
+            $(localStorage.setItem('WMEMentorAutoSendMyReminders', WMEMentorAutoSendMyReminders.checked));
         });
 
-        var avdd = localStorage.getItem('URCommentsAutoSendMyReminders');
+        var avdd = localStorage.getItem('WMEMentorAutoSendMyReminders');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsAutoSendMyReminders").prop('checked', eval(avdd));
+        $("#WMEMentorAutoSendMyReminders").prop('checked', eval(avdd));
 
-        d = $('<label Title="' + URC_Text_tooltip[41] + '"><input type="checkbox" id="URCommentsReplaceTagWithEditorName" class="URCommentsCheckbox"> ' + URC_Text[41] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
-        $("#URCommentsReplaceTagWithEditorName").click(function() {
-            $(localStorage.setItem('URCommentsReplaceTagWithEditorName', URCommentsReplaceTagWithEditorName.checked));
-            setTimeout(URComments.FilterURs('URCommentsReplaceTagWithEditorName'), 0);
+        d = $('<label Title="' + URC_Text_tooltip[41] + '"><input type="checkbox" id="WMEMentorReplaceTagWithEditorName" class="WMEMentorCheckbox"> ' + URC_Text[41] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
+        $("#WMEMentorReplaceTagWithEditorName").click(function() {
+            $(localStorage.setItem('WMEMentorReplaceTagWithEditorName', WMEMentorReplaceTagWithEditorName.checked));
+            setTimeout(WMEMentor.FilterURs('WMEMentorReplaceTagWithEditorName'), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsReplaceTagWithEditorName');
+        var avdd = localStorage.getItem('WMEMentorReplaceTagWithEditorName');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsReplaceTagWithEditorName").prop('checked', eval(avdd));
+        $("#WMEMentorReplaceTagWithEditorName").prop('checked', eval(avdd));
 		
 		
 		
 		
 		
-		d = $('<label Title="' + URC_Text_tooltip[43] + '"><input type="checkbox" id="URCommentsDontShowTaggedText" class="URCommentsCheckbox"> ' + URC_Text[43] + '</input></label><br>');
-        $("#sidepanel-URComments-settings").append(d);
-        $("#URCommentsDontShowTaggedText").click(function() {
-            $(localStorage.setItem('URCommentsDontShowTaggedText', URCommentsDontShowTaggedText.checked));
-            setTimeout(URComments.FilterURs(URCommentsDontShowTaggedText), 0);
+		d = $('<label Title="' + URC_Text_tooltip[43] + '"><input type="checkbox" id="WMEMentorDontShowTaggedText" class="WMEMentorCheckbox"> ' + URC_Text[43] + '</input></label><br>');
+        $("#sidepanel-WMEMentor-settings").append(d);
+        $("#WMEMentorDontShowTaggedText").click(function() {
+            $(localStorage.setItem('WMEMentorDontShowTaggedText', WMEMentorDontShowTaggedText.checked));
+            setTimeout(WMEMentor.FilterURs(WMEMentorDontShowTaggedText), 0);
         });
 
-        var avdd = localStorage.getItem('URCommentsDontShowTaggedText');
+        var avdd = localStorage.getItem('WMEMentorDontShowTaggedText');
         if (avdd === null) {
             avdd = false;
         }
-        $("#URCommentsDontShowTaggedText").prop('checked', eval(avdd));
+        $("#WMEMentorDontShowTaggedText").prop('checked', eval(avdd));
 		
 		
 		
@@ -1700,79 +1695,79 @@ function URComments_init() {
         //////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //URComments tab is loaded load options to last state
+        //WMEMentor tab is loaded load options to last state
         //here we also check to see if the options have ever been set (new user) if not we enable them all on script load
         //enabling them will trigger a click of the option which will cause the option to be saved
 
         //OnlyMyUR have the predefined pre-sets only show comments that the current user has commented on
         if (localStorage.getItem('OnlyMyUR') == "yes") {
-            $("#URCommentUROOnlyMyUR").trigger('click');
+            $("#WMEMentorUROOnlyMyUR").trigger('click');
         }
 
         //auto set new urs comment
         if (localStorage.getItem('AutoSetNewComment') == "yes" || !localStorage.getItem('AutoSetNewComment')) {
-            $("#UrCommentAutoSetNewComment").trigger('click');
+            $("#WMEMentorAutoSetNewComment").trigger('click');
         }
 
         //auto set 4day urs comment
-        if (localStorage.getItem('UrCommentAutoSet4dayComment') == "yes" || !localStorage.getItem('UrCommentAutoSet4dayComment')) {
-            $("#UrCommentAutoSet4dayComment").trigger('click');
+        if (localStorage.getItem('WMEMentorAutoSet4dayComment') == "yes" || !localStorage.getItem('WMEMentorAutoSet4dayComment')) {
+            $("#WMEMentorAutoSet4dayComment").trigger('click');
         }
 
-        //UrCommentAutoCloseComment
-        if (localStorage.getItem('UrCommentAutoCloseComment') == "yes" || !localStorage.getItem('UrCommentAutoCloseComment')) {
-            $("#UrCommentAutoCloseComment").trigger('click');
+        //WMEMentorAutoCloseComment
+        if (localStorage.getItem('WMEMentorAutoCloseComment') == "yes" || !localStorage.getItem('WMEMentorAutoCloseComment')) {
+            $("#WMEMentorAutoCloseComment").trigger('click');
         }
 
         //AutoReloadAfterComment
         //if (localStorage.getItem('AutoReloadAfterComment') == "yes") {
-        //    $("#UrCommentAutoReloadAfterComment").trigger('click');
+        //    $("#WMEMentorAutoReloadAfterComment").trigger('click');
         //}
 
         //NewZoomIn
         if (localStorage.getItem('NewZoomIn') == "yes" || !localStorage.getItem('NewZoomIn')) {
-            $("#UrCommentNewZoomIn").trigger('click');
+            $("#WMEMentorNewZoomIn").trigger('click');
         }
 
         //auto recenter ur without comments
         if (localStorage.getItem('WithCommentRecenter') == "yes" || !localStorage.getItem('WithCommentRecenter')) {
-            $("#UrCommentWithCommentRecenter").trigger('click');
+            $("#WMEMentorWithCommentRecenter").trigger('click');
         }
 
-        // URComments load and set settings and check boxes  
+        // WMEMentor load and set settings and check boxes  
         if (localStorage.getItem('AutoClickURStatus') == "yes" || !localStorage.getItem('AutoClickURStatus')) {
-            $("#URCommentAutoClickURStatus").trigger('click');
+            $("#WMEMentorAutoClickURStatus").trigger('click');
             if (localStorage.getItem('DBLClk7DCAutoSend') == "yes" || localStorage.getItem('DBLClkAll') == "yes") {
-                $('#URCommentAutoClickURStatus').prop('checked', true);
+                $('#WMEMentorAutoClickURStatus').prop('checked', true);
                 localStorage.setItem('AutoClickURStatus', 'yes');
             }
         }
 
-        //UrCommentSaveAfterComment
+        //WMEMentoraveAfterComment
         if (localStorage.getItem('SaveAfterComment') == "yes" || !localStorage.getItem('SaveAfterComment')) {
-            $("#UrCommentSaveAfterComment").trigger('click');
+            $("#WMEMentoraveAfterComment").trigger('click');
         }
 
         //AutoZoomOutAfterComment
         if (localStorage.getItem('ZoomOutAfterComment') == "yes" || !localStorage.getItem('ZoomOutAfterComment')) {
-            $("#UrCommentZoomOutAfterComment").trigger('click');
+            $("#WMEMentorZoomOutAfterComment").trigger('click');
         }
 
-        //AutoSwitchToURCommentsTab
-        if (localStorage.getItem('AutoSwitchToURCommentsTab') == "yes" || !localStorage.getItem('AutoSwitchToURCommentsTab')) {
-            $("#UrCommentAutoSwitchToURCommentsTab").trigger('click');
+        //AutoSwitchToWMEMentorTab
+        if (localStorage.getItem('AutoSwitchToWMEMentorTab') == "yes" || !localStorage.getItem('AutoSwitchToWMEMentorTab')) {
+            $("#WMEMentorAutoSwitchToWMEMentorTab").trigger('click');
         }
 
-        //UrCommentDBLClk7DCAutoSend
+        //WMEMentorDBLClk7DCAutoSend
         if (localStorage.getItem('DBLClk7DCAutoSend') == "yes") {
-            $("#UrCommentDBLClk7DCAutoSend").prop('checked', true);
+            $("#WMEMentorDBLClk7DCAutoSend").prop('checked', true);
             $("#AutoClickURStatus").prop('checked', true);
             localStorage.setItem('AutoClickURStatus', 'yes');
         }
 
-        //UrCommentDBLClkAll
+        //WMEMentorDBLClkAll
         if (localStorage.getItem('DBLClkAll') == "yes") {
-            $("#UrCommentDBLClkAll").prop('checked', true);
+            $("#WMEMentorDBLClkAll").prop('checked', true);
             $("#AutoClickURStatus").prop('checked', true);
             localStorage.setItem('AutoClickURStatus', 'yes');
         }
@@ -1782,24 +1777,24 @@ function URComments_init() {
         $("#BoilerPlateCreators").val(SelectedBoilerPlateCreator);
         //end getting boilerplatecreators
 
-        //check to see if the option to auto switch to the URComments tab is enabled
-        //if (UrCommentAutoSwitchToURCommentsTab.checked) {
+        //check to see if the option to auto switch to the WMEMentor tab is enabled
+        //if (WMEMentorAutoSwitchToWMEMentorTab.checked) {
         //    //make UR Comments tab active
         //    $('#CommentsTab').trigger('click');
         //}
 
-        if (URCommentUpdateMessage === "yes") {
-            //alert the user in  URComment version updates
-            if (localStorage.getItem('URCommentVersion') === URCommentVersion) {
-                urcToConsole("Version - " + URCommentVersion);
+        if (WMEMentorUpdateMessage === "yes") {
+            //alert the user in  WMEMentor version updates
+            if (localStorage.getItem('WMEMentorVersion') === WMEMentorVersion) {
+                urcToConsole("Version - " + WMEMentorVersion);
             } else {
-                alert(URCommentVersionUpdateNotes);
-                localStorage.setItem('URCommentVersion', URCommentVersion);
+                alert(WMEMentorVersionUpdateNotes);
+                localStorage.setItem('WMEMentorVersion', WMEMentorVersion);
             }
         }
 
         //set the background of the last used URO preset
-        //URComments.UROPresetHighlight(localStorage.getItem('UROCurrentPeset'));
+        //WMEMentor.UROPresetHighlight(localStorage.getItem('UROCurrentPeset'));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////
@@ -1808,16 +1803,16 @@ function URComments_init() {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //start looking for opened UR's window
-        setTimeout(URComments.LookForOpenedUR, 1000);
+        setTimeout(WMEMentor.LookForOpenedUR, 1000);
 
         //reset URO the hiding of tagged pin
-        //setTimeout(URComments.HideTagged("startup"), 10000);
+        //setTimeout(WMEMentor.HideTagged("startup"), 10000);
 
-        setTimeout(URComments.URCLoadUpdateRequestsEvents, 0);
+        setTimeout(WMEMentor.URCLoadUpdateRequestsEvents, 0);
 
         //enable exp road $( ".toggler label span:contains('Roads experimental')" ).click();// turn on experimental roads layer 
         //$(".toggler label span:contains('Me!')").click(); //auto enable wme me!
-        //end of URCommentsinit	
+        //end of WMEMentorinit	
     };
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -1827,7 +1822,7 @@ function URComments_init() {
     ///////////////////////////////////////////////////////////////////////////////////
 
     //look for the UR window to be open	
-    URComments.LookForOpenedUR = function() {
+    WMEMentor.LookForOpenedUR = function() {
         //urcToConsole("look for open UR window " + (new Date()).getTime());
         //check for an open UR and that the UR's text area is shown
 		
@@ -1837,7 +1832,7 @@ function URComments_init() {
 		
 
         //relaunch checking for open ur - moved this up here so the script would keep trying if I had an error
-        setTimeout(URComments.LookForOpenedUR, 500); //line 892
+        setTimeout(WMEMentor.LookForOpenedUR, 500); //line 892
 
         var urID = 0;
 
@@ -1873,11 +1868,11 @@ function URComments_init() {
         if (urID > 0 && typeof urID !== 'undefined') {
 
             //new or same ur (re))open(ed) so now we can do stuff; this prevents this function to continuously applying settings to a ur
-            if (UrCommentLasturID !== urID && $(".new-comment-text").length !== 0) {
+            if (WMEMentorLasturID !== urID && $(".new-comment-text").length !== 0) {
                 urcToConsole("Found open UR - " + urID);
 
                 //grab the current UR ID for next time
-                UrCommentLasturID = urID;
+                WMEMentorLasturID = urID;
 
                 //url to open a UR
                 //https://www.waze.com/editor/?zoom=5&lat=34.024522&lon=-118.297005&mapUpdateRequest=3710607&env=usa
@@ -1901,9 +1896,9 @@ function URComments_init() {
                 }
 
                 //disable the stupid new done button
-                if ($("#panel-container .content .done").length > 0 && UrCommentDisableURDoneBtn.checked === true) {
+                if ($("#panel-container .content .done").length > 0 && WMEMentorDisableURDoneBtn.checked === true) {
                     $("#panel-container .content .done").attr('disabled', true);
-                    $("#panel-container .content .done").html('(Done) Disabled by URComments');
+                    $("#panel-container .content .done").html('(Done) Disabled by WMEMentor');
                 }
 
                 //complaints about editors not reading the description so I am moving the description up a div
@@ -1919,7 +1914,7 @@ function URComments_init() {
                 $('.problem-edit .problem-data').scrollTop($('.conversation-view .comment-list')[0].scrollHeight);
 
 				//attach an even listener to the UR center button to take us to the UR
-				$('#panel-container > div > div > div.header > a.focus > i').click(URComments.CrossHairsClicked(urID, 5));
+				$('#panel-container > div > div > div.header > a.focus > i').click(WMEMentor.CrossHairsClicked(urID, 5));
 				
 
 				
@@ -1940,7 +1935,7 @@ function URComments_init() {
 
                     urcToConsole("LookForOpenedUR no comments");
 
-                    if (UrCommentAutoSetNewComment.checked === true) {
+                    if (WMEMentorAutoSetNewComment.checked === true) {
                         urcToConsole("LookForOpenedUR no comments2");
                         //this will be on of the types of UR that a user can choose from when submitting a UR 
 
@@ -1949,10 +1944,10 @@ function URComments_init() {
                         urcToConsole("LookForOpenedUR Found open UR - " + urID + " " + def_names[urType]);
 
                         //loop trough the comment array for a comment that matches the request type.
-                        for (var ii = 0; ii < URCommentsArray.length; ii = ii + 3) {
-                            if (URCommentsArray[ii].toLowerCase() === def_names[urType].toLowerCase()) {
+                        for (var ii = 0; ii < WMEMentorArray.length; ii = ii + 3) {
+                            if (WMEMentorArray[ii].toLowerCase() === def_names[urType].toLowerCase()) {
                                 urcToConsole("LookForOpenedUR Matched Comment: " + def_names[urType]);
-                                setTimeout(URComments.AutoZoomIN(URCommentsArray[ii], URCommentsArray[ii + 1], URCommentsArray[ii + 2], urID), 0);
+                                setTimeout(WMEMentor.AutoZoomIN(WMEMentorArray[ii], WMEMentorArray[ii + 1], WMEMentorArray[ii + 2], urID), 0);
                             }
                         }
                     }
@@ -1964,27 +1959,27 @@ function URComments_init() {
                     urcToConsole("LookForOpenedUR LastCommentorUserID: " + LastCommentorUserID);
 
                     //uro days old
-                    var commentDaysOld = URComments.uroGetCommentAge(W.model.updateRequestSessions.objects[urID].comments[i - 1]);
+                    var commentDaysOld = WMEMentor.uroGetCommentAge(W.model.updateRequestSessions.objects[urID].comments[i - 1]);
                     urcToConsole("LookForOpenedUR Days old: " + commentDaysOld);
 
-                    //if (i === 1 && commentDaysOld >= 4 && LastCommentorUserID > 1 && UrCommentAutoSet4dayComment.checked === true) {
+                    //if (i === 1 && commentDaysOld >= 4 && LastCommentorUserID > 1 && WMEMentorAutoSet4dayComment.checked === true) {
                     var ReminderDays = $('#ReminderDays').val();
                     urcToConsole("LookForOpenedUR ReminderDays: " + ReminderDays);
 
-                    if (i === 1 && ReminderDays > 0 && commentDaysOld >= ReminderDays && LastCommentorUserID > 1 && UrCommentAutoSet4dayComment.checked === true) {
+                    if (i === 1 && ReminderDays > 0 && commentDaysOld >= ReminderDays && LastCommentorUserID > 1 && WMEMentorAutoSet4dayComment.checked === true) {
                         //4day - 1 comment, last comment less than 4 days, last comment is not from reporter
                         urcToConsole("LookForOpenedUR 4day");
 
                         //4 day ur 1 comment
-                        setTimeout(URComments.AutoZoomIN(URCommentsArray[ReminderPosistion], URCommentsArray[ReminderPosistion + 1], URCommentsArray[ReminderPosistion + 2], urID), 0);
+                        setTimeout(WMEMentor.AutoZoomIN(WMEMentorArray[ReminderPosistion], WMEMentorArray[ReminderPosistion + 1], WMEMentorArray[ReminderPosistion + 2], urID), 0);
                     }
                     //don't allow auto filling of the close message because it clicks the not identified option and causes trouble when the Ur window is shut/closed the next save will mark it as not identified, without a comment.
 
                 }
 
                 var WazeCurrentZoom = "";
-                WazeCurrentZoom = URComments.GetWazeMapZoomLevel();
-                if (i === 0 && UrCommentNewZoomIn.checked === true) {
+                WazeCurrentZoom = WMEMentor.GetWazeMapZoomLevel();
+                if (i === 0 && WMEMentorNewZoomIn.checked === true) {
                     //zoom in new 
                     //predefined zoom threshold for auto zoom
                     var zoom = 4;
@@ -1992,20 +1987,20 @@ function URComments_init() {
                     //do not zoom back out if we are already zoomed in and just happen to be re-clicking on a UR.
                     if (WazeCurrentZoom < zoom) {
 						urcToConsole("zoom in 1");	
-                        URComments.gotoURById(urID, 5);
+                        WMEMentor.gotoURById(urID, 5);
                     }
-                } else if (UrCommentWithCommentRecenter.checked === true) {
+                } else if (WMEMentorWithCommentRecenter.checked === true) {
                     //re-center on urs that are not zoom in
                     if (WazeCurrentZoom < 3) {
                         //alert(WazeCurrentZoom);
 						urcToConsole("Auto center 1");
-                        URComments.gotoURById(urID, WazeCurrentZoom);
+                        WMEMentor.gotoURById(urID, WazeCurrentZoom);
                     }
 
                 }
 
                 //auto switch to ur comments tab
-                if (UrCommentAutoSwitchToURCommentsTab.checked) {
+                if (WMEMentorAutoSwitchToWMEMentorTab.checked) {
                     //grab the active tab
                     PreviousTab = $("#user-tabs > ul > li.active > a");
 					//grab the active tabs scroll posistion
@@ -2021,10 +2016,10 @@ function URComments_init() {
 
         } else {
             //reset the id if a ur is not open so we can set the tab for the same ur
-            UrCommentLasturID = "";
+            WMEMentorLasturID = "";
             urID = "";
             //switch tab back
-            if (UrCommentAutoSwitchToURCommentsTab.checked) {
+            if (WMEMentorAutoSwitchToWMEMentorTab.checked) {
                 //verify that we had found a tab
                 if (PreviousTab !== null) {
                     //click back on the previous tab
@@ -2047,31 +2042,31 @@ function URComments_init() {
     ////////////////////////////////////////////////////////////////////////////
 
     //use uro to only show urs that I have commented on
-    URComments.OnlyMyUR = function() {
+    WMEMentor.OnlyMyUR = function() {
 
         //try to save the state of the check box
-        if (URCommentUROOnlyMyUR.checked) {
+        if (WMEMentorUROOnlyMyUR.checked) {
             localStorage.setItem('OnlyMyUR', 'yes');
         } else {
             localStorage.setItem('OnlyMyUR', 'no');
         }
 
         //only show my ur 'OnlyMyUR' 
-        if (URCommentUROOnlyMyUR.checked && !_cbHideAnyComments.checked) {
+        if (WMEMentorUROOnlyMyUR.checked && !_cbHideAnyComments.checked) {
             $("#_cbHideAnyComments").trigger('click');
 
-        } else if (!URCommentUROOnlyMyUR.checked && _cbHideAnyComments.checked) {
+        } else if (!WMEMentorUROOnlyMyUR.checked && _cbHideAnyComments.checked) {
             $("#_cbHideAnyComments").trigger('click');
         }
 
     };
     /*
-        //URCommentUROHideTagged
+        //WMEMentorUROHideTagged
         //use uro to Hide Tagged pins
-        URComments.HideTagged = function(when) {
+        WMEMentor.HideTagged = function(when) {
             return function() {
-                urcToConsole("URCommentUROHideTagged");
-                URComments.TaggedPinsAray = [
+                urcToConsole("WMEMentorUROHideTagged");
+                WMEMentor.TaggedPinsAray = [
                     "_cbFilterRoadworks",	//
                     "_cbFilterConstruction",//
                     "_cbFilterClosure",		//
@@ -2080,26 +2075,26 @@ function URComments_init() {
                 ];
 
                 //go over the array and clear all of the URO+ check boxes
-                for (var URComments_URO_Index = 0; URComments_URO_Index < URComments.TaggedPinsAray.length; URComments_URO_Index = URComments_URO_Index + 1) {
+                for (var WMEMentor_URO_Index = 0; WMEMentor_URO_Index < WMEMentor.TaggedPinsAray.length; WMEMentor_URO_Index = WMEMentor_URO_Index + 1) {
                     if(when==="startup") {
-                        if ($('#' + URComments.TaggedPinsAray[URComments_URO_Index]).is(":checked")) {
-                            $('#URCommentUROHideTagged').prop('checked', true);
+                        if ($('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).is(":checked")) {
+                            $('#WMEMentorUROHideTagged').prop('checked', true);
                         }
 
 
                     } else {	
-                        urcToConsole("URCommentUROHideTagged " + URComments.TaggedPinsAray[URComments_URO_Index]);
+                        urcToConsole("WMEMentorUROHideTagged " + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]);
 
-                        if ($('#' + URComments.TaggedPinsAray[URComments_URO_Index]).length <= 0) {
+                        if ($('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).length <= 0) {
                             alert("there was an error finding URO's hide tagged pins setting please verify these settings are in the correct state");
                             return false;
                         }
 
 
-                        if (URCommentUROHideTagged.checked && !$('#' + URComments.TaggedPinsAray[URComments_URO_Index]).is(":checked")) {
-                            $('#' + URComments.TaggedPinsAray[URComments_URO_Index]).trigger('click');
-                        } else if (!URCommentUROHideTagged.checked && $('#' + URComments.TaggedPinsAray[URComments_URO_Index]).is(":checked")) {
-                            $('#' + URComments.TaggedPinsAray[URComments_URO_Index]).trigger('click');
+                        if (WMEMentorUROHideTagged.checked && !$('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).is(":checked")) {
+                            $('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).trigger('click');
+                        } else if (!WMEMentorUROHideTagged.checked && $('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).is(":checked")) {
+                            $('#' + WMEMentor.TaggedPinsAray[WMEMentor_URO_Index]).trigger('click');
                         }              
                     }
                 }
@@ -2107,31 +2102,31 @@ function URComments_init() {
         };
     */
 
-    URComments.AutoClickURStatus = function() {
+    WMEMentor.AutoClickURStatus = function() {
         //try to save the state of the check box
-        if (URCommentAutoClickURStatus.checked) {
+        if (WMEMentorAutoClickURStatus.checked) {
             localStorage.setItem('AutoClickURStatus', 'yes');
             //alert("yes");
         } else {
             localStorage.setItem('AutoClickURStatus', 'no');
             //alert("no");
             //turn off save after send
-            if (!URCommentAutoClickURStatus.checked && UrCommentSaveAfterComment.checked) {
-                $('#UrCommentSaveAfterComment').prop('checked', false);
+            if (!WMEMentorAutoClickURStatus.checked && WMEMentoraveAfterComment.checked) {
+                $('#WMEMentoraveAfterComment').prop('checked', false);
                 localStorage.setItem('SaveAfterComment', 'no');
             }
 
-            if (UrCommentDBLClk7DCAutoSend.checked == true || UrCommentDBLClkAll.checked == true) {
-                $('#URCommentAutoClickURStatus').prop('checked', true);
-                alert(URC_USER_PROMPT[4]); //"URComments to use the double click links you must have the autoset UR status option enabled"
+            if (WMEMentorDBLClk7DCAutoSend.checked == true || WMEMentorDBLClkAll.checked == true) {
+                $('#WMEMentorAutoClickURStatus').prop('checked', true);
+                alert(URC_USER_PROMPT[4]); //"WMEMentor to use the double click links you must have the autoset UR status option enabled"
                 localStorage.setItem('AutoClickURStatus', 'yes');
             }
         }
     };
 
-    URComments.SaveAfterComment = function() {
+    WMEMentor.SaveAfterComment = function() {
         //try to save the state of the check box
-        if (UrCommentSaveAfterComment.checked) {
+        if (WMEMentoraveAfterComment.checked) {
             localStorage.setItem('SaveAfterComment', 'yes');
             //alert("yes");
         } else {
@@ -2139,29 +2134,29 @@ function URComments_init() {
             //alert("no");
         }
         //when save if on turn on auto click status
-        if (UrCommentSaveAfterComment.checked && !URCommentAutoClickURStatus.checked) {
-            $('#URCommentAutoClickURStatus').prop('checked', true);
+        if (WMEMentoraveAfterComment.checked && !WMEMentorAutoClickURStatus.checked) {
+            $('#WMEMentorAutoClickURStatus').prop('checked', true);
             localStorage.setItem('AutoClickURStatus', 'yes');
         }
     };
 
-    URComments.AutoCloseComment = function() {
+    WMEMentor.AutoCloseComment = function() {
         //try to save the state of the check box
-        if (UrCommentAutoCloseComment.checked) {
-            localStorage.setItem('UrCommentAutoCloseComment', 'yes');
+        if (WMEMentorAutoCloseComment.checked) {
+            localStorage.setItem('WMEMentorAutoCloseComment', 'yes');
             //alert("yes");
         } else {
-            localStorage.setItem('UrCommentAutoCloseComment', 'no');
+            localStorage.setItem('WMEMentorAutoCloseComment', 'no');
             //alert("no");
         }
-        //alert ( localStorage.getItem('UrCommentAutoCloseComment') ); 
+        //alert ( localStorage.getItem('WMEMentorAutoCloseComment') ); 
     };
 
-    // UrCommentAutoReloadAfterComment
-    //URComments.AutoReloadAfterComment = function() {
-        // UrCommentAutoReloadAfterComment
+    // WMEMentorAutoReloadAfterComment
+    //WMEMentor.AutoReloadAfterComment = function() {
+        // WMEMentorAutoReloadAfterComment
         //try to save the state of the check box
-    //    if (UrCommentAutoReloadAfterComment.checked) {
+    //    if (WMEMentorAutoReloadAfterComment.checked) {
     //        localStorage.setItem('AutoReloadAfterComment', 'yes');
             //alert("yes");
      //   } else {
@@ -2170,8 +2165,8 @@ function URComments_init() {
       //  }
     //};
 
-    URComments.ZoomOutAfterComment = function() {
-        if (UrCommentZoomOutAfterComment.checked) {
+    WMEMentor.ZoomOutAfterComment = function() {
+        if (WMEMentorZoomOutAfterComment.checked) {
             localStorage.setItem('ZoomOutAfterComment', 'yes');
             //alert("yes");
         } else {
@@ -2180,10 +2175,10 @@ function URComments_init() {
         }
     };
 
-    URComments.AutoSetNewComment = function() {
+    WMEMentor.AutoSetNewComment = function() {
         //add reply instructions to replies
         //try to save the state of the check box
-        if (UrCommentAutoSetNewComment.checked) {
+        if (WMEMentorAutoSetNewComment.checked) {
             localStorage.setItem('AutoSetNewComment', 'yes');
             //alert(" AutoSetNewComment yes");
         } else {
@@ -2192,22 +2187,22 @@ function URComments_init() {
         }
     };
 
-    URComments.UrCommentAutoSet4dayComment = function() {
+    WMEMentor.WMEMentorAutoSet4dayComment = function() {
         //add reply instructions to replies
         //try to save the state of the check box
-        if (UrCommentAutoSet4dayComment.checked) {
-            localStorage.setItem('UrCommentAutoSet4dayComment', 'yes');
-            //alert(" UrCommentAutoSet4dayComment yes");
+        if (WMEMentorAutoSet4dayComment.checked) {
+            localStorage.setItem('WMEMentorAutoSet4dayComment', 'yes');
+            //alert(" WMEMentorAutoSet4dayComment yes");
         } else {
-            localStorage.setItem('UrCommentAutoSet4dayComment', 'no');
-            //alert("UrCommentAutoSet4dayComment no");
+            localStorage.setItem('WMEMentorAutoSet4dayComment', 'no');
+            //alert("WMEMentorAutoSet4dayComment no");
         }
     };
 
-    URComments.NewZoomIn = function() {
+    WMEMentor.NewZoomIn = function() {
         //add reply instructions to replies
         //try to save the state of the check box
-        if (UrCommentNewZoomIn.checked) {
+        if (WMEMentorNewZoomIn.checked) {
             localStorage.setItem('NewZoomIn', 'yes');
             //alert(" NewZoomIn yes");
         } else {
@@ -2217,10 +2212,10 @@ function URComments_init() {
 
     };
 
-    URComments.WithCommentRecenter = function() {
+    WMEMentor.WithCommentRecenter = function() {
         //add reply instructions to replies
         //try to save the state of the check box
-        if (UrCommentWithCommentRecenter.checked) {
+        if (WMEMentorWithCommentRecenter.checked) {
             localStorage.setItem('WithCommentRecenter', 'yes');
             //alert(" WithCommentRecenter yes");
         } else {
@@ -2230,25 +2225,25 @@ function URComments_init() {
 
     };
 
-    URComments.AutoSwitchToURCommentsTab = function() {
-        // AutoSwitchToURCommentsTab
+    WMEMentor.AutoSwitchToWMEMentorTab = function() {
+        // AutoSwitchToWMEMentorTab
         //try to save the state of the check box
-        if (UrCommentAutoSwitchToURCommentsTab.checked) {
-            localStorage.setItem('AutoSwitchToURCommentsTab', 'yes');
+        if (WMEMentorAutoSwitchToWMEMentorTab.checked) {
+            localStorage.setItem('AutoSwitchToWMEMentorTab', 'yes');
             //alert("yes");
         } else {
-            localStorage.setItem('AutoSwitchToURCommentsTab', 'no');
+            localStorage.setItem('AutoSwitchToWMEMentorTab', 'no');
             //alert("no");
         }
     };
 
-    //UrCommentDBLClk7DCAutoSend
-    URComments.DBLClk7DCAutoSend = function() {
-        if (UrCommentDBLClk7DCAutoSend.checked) {
+    //WMEMentorDBLClk7DCAutoSend
+    WMEMentor.DBLClk7DCAutoSend = function() {
+        if (WMEMentorDBLClk7DCAutoSend.checked) {
             //save the selection
             localStorage.setItem('DBLClk7DCAutoSend', 'yes');
 
-            $('#URCommentAutoClickURStatus').prop('checked', true);
+            $('#WMEMentorAutoClickURStatus').prop('checked', true);
             localStorage.setItem('AutoClickURStatus', 'yes');
 
         } else {
@@ -2260,17 +2255,17 @@ function URComments_init() {
         //reload the content
         ChangeLanguage = true;
 
-        //setTimeout(URComments_bootstrap, 20);
-        URComments_bootstrap();
+        //setTimeout(WMEMentor_bootstrap, 20);
+        WMEMentor_bootstrap();
 
     };
 
-    //UrCommentDBLClkAll
-    URComments.DBLClkAll = function() {
-        if (UrCommentDBLClkAll.checked) {
+    //WMEMentorDBLClkAll
+    WMEMentor.DBLClkAll = function() {
+        if (WMEMentorDBLClkAll.checked) {
             localStorage.setItem('DBLClkAll', 'yes');
 
-            $('#URCommentAutoClickURStatus').prop('checked', true);
+            $('#WMEMentorAutoClickURStatus').prop('checked', true);
             localStorage.setItem('AutoClickURStatus', 'yes');
         } else {
             localStorage.setItem('DBLClkAll', 'no');
@@ -2281,8 +2276,8 @@ function URComments_init() {
         //reload the content
         ChangeLanguage = true;
 
-        //setTimeout(URComments_bootstrap, 20);
-        URComments_bootstrap();
+        //setTimeout(WMEMentor_bootstrap, 20);
+        WMEMentor_bootstrap();
     };
 
     ///////////////////////////////////////////////////////////////////////
@@ -2291,7 +2286,7 @@ function URComments_init() {
     //////
     ///////////////////////////////////////////////////////////////////////
 
-    URComments.escapeHtml = function(a) {
+    WMEMentor.escapeHtml = function(a) {
         a = a.replace(/&/g, "&amp;");
         a = a.replace(/</g, "&lt;");
         a = a.replace(/>/g, "&gt;");
@@ -2301,7 +2296,7 @@ function URComments_init() {
     };
 
     //$( "#update-request-panel .solution p").html()
-    URComments.StringSwap = function(a) {
+    WMEMentor.StringSwap = function(a) {
 
         if ($("#update-request-panel .solution p").length > 0) {
             a = a.replace("$URD", $("#update-request-panel .solution p").html());
@@ -2346,12 +2341,12 @@ function URComments_init() {
     };
 
     //sorry URO if i was going to use you to sort Urs i needed to use the same dates you do! Thanks! ;)
-    URComments.uroGetCommentAge = function(commentObj) {
+    WMEMentor.uroGetCommentAge = function(commentObj) {
         if (commentObj.createdOn === null) return -1;
-        return URComments.uroDateToDays(commentObj.createdOn);
+        return WMEMentor.uroDateToDays(commentObj.createdOn);
     };
 
-    URComments.uroDateToDays = function(dateToConvert) {
+    WMEMentor.uroDateToDays = function(dateToConvert) {
         var dateNow = new Date();
         var elapsedSinceEpoch = dateNow.getTime();
         var elapsedSinceEvent = elapsedSinceEpoch - dateToConvert;
@@ -2369,7 +2364,7 @@ function URComments_init() {
         }
     };
 
-    URComments.onScreen = function(obj) {
+    WMEMentor.onScreen = function(obj) {
 
         //geometry was removed from Waze.model.mapUpdateRequests.objects[id]
         //but can be found in Waze.model.mapUpdateRequests.objects[id].geometry
@@ -2380,7 +2375,7 @@ function URComments_init() {
         return false;
     };
 
-    URComments.URCLoadUpdateRequestsEvents = function() {
+    WMEMentor.URCLoadUpdateRequestsEvents = function() {
         /*
 				W.model.mapUpdateRequests.events.register("objectschanged", null, uroFilterURs_onObjectsChanged);
          W.model.mapUpdateRequests.events.register("objectsadded", null, uroFilterURs_onObjectsAdded);
@@ -2392,33 +2387,33 @@ function URComments_init() {
 				*/
 
         window.HideUR = "stopped";
-        W.model.mapUpdateRequests.events.register("objectschanged", null, URComments.urcUREvent_onObjectsAdded('mapUpdateRequests objectschanged')); //needed
-        // W.model.mapUpdateRequests.events.register("objectsadded", null, URComments.urcUREvent_onObjectsAdded('mapUpdateRequests objectsadded')); //this one triggers for ever ur added to the db
-        //W.model.mapUpdateRequests.events.register("objectsremoved", null, URComments.urcUREvent_onObjectsAdded('mapUpdateRequests objectsremoved'));
-        //W.model.updateRequestSessions.events.register("objectsremoved", null, URComments.urcUREvent_onObjectsAdded('updateRequestSessions objectsremoved'));
+        W.model.mapUpdateRequests.events.register("objectschanged", null, WMEMentor.urcUREvent_onObjectsAdded('mapUpdateRequests objectschanged')); //needed
+        // W.model.mapUpdateRequests.events.register("objectsadded", null, WMEMentor.urcUREvent_onObjectsAdded('mapUpdateRequests objectsadded')); //this one triggers for ever ur added to the db
+        //W.model.mapUpdateRequests.events.register("objectsremoved", null, WMEMentor.urcUREvent_onObjectsAdded('mapUpdateRequests objectsremoved'));
+        //W.model.updateRequestSessions.events.register("objectsremoved", null, WMEMentor.urcUREvent_onObjectsAdded('updateRequestSessions objectsremoved'));
 
 
-        //W.model.updateRequestSessions.events.register("objectschanged", null, URComments.urcUREvent_onObjectsAdded('updateRequestSessions objectschanged')); // this launches every time a UR is opened
-        W.model.updateRequestSessions.events.register("objectsadded", null, URComments.urcUREvent_onObjectsAdded('updateRequestSessions objectsadded')); //needed
+        //W.model.updateRequestSessions.events.register("objectschanged", null, WMEMentor.urcUREvent_onObjectsAdded('updateRequestSessions objectschanged')); // this launches every time a UR is opened
+        W.model.updateRequestSessions.events.register("objectsadded", null, WMEMentor.urcUREvent_onObjectsAdded('updateRequestSessions objectsadded')); //needed
 
 
-        W.map.events.register("moveend", null, URComments.urcUREvent_onObjectsAdded('moveend')); //needed
-        W.map.events.register("zoomend", null, URComments.urcUREvent_onObjectsAdded('zoomend')); //needed
-        //W.map.events.register("mouseup", null,  URComments.urcUREvent_onObjectsAdded('mouseup'));
+        W.map.events.register("moveend", null, WMEMentor.urcUREvent_onObjectsAdded('moveend')); //needed
+        W.map.events.register("zoomend", null, WMEMentor.urcUREvent_onObjectsAdded('zoomend')); //needed
+        //W.map.events.register("mouseup", null,  WMEMentor.urcUREvent_onObjectsAdded('mouseup'));
 
         //urcToConsole("UR events added");
 
-        //setTimeout(URComments.urcUREvent_onObjectsAdded('pageload'), 1000);  
-        setTimeout(URComments.urcUREvent_onObjectsAdded('pageload'), 50);
+        //setTimeout(WMEMentor.urcUREvent_onObjectsAdded('pageload'), 1000);  
+        setTimeout(WMEMentor.urcUREvent_onObjectsAdded('pageload'), 50);
     };
 
 
-    URComments.urcUREvent_onObjectsAdded = function(a) {
+    WMEMentor.urcUREvent_onObjectsAdded = function(a) {
         return function() {
 
             //check if filtering or the pill count are enabled other wise abort this function
-            //URCommentsFilterEnabled URCommentsPillEnabled
-            if (URCommentsFilterEnabled.checked === false && URCommentsPillEnabled.checked === false && URCommentsAutoSendMyReminders.checked === false) {
+            //WMEMentorFilterEnabled WMEMentorPillEnabled
+            if (WMEMentorFilterEnabled.checked === false && WMEMentorPillEnabled.checked === false && WMEMentorAutoSendMyReminders.checked === false) {
                 urcToConsole(URC_USER_PROMPT[5]); //"aborting FilterURs2 becasue both filtering, counts, and auto reminders are disabled"
                 return;
             }
@@ -2428,7 +2423,7 @@ function URComments_init() {
             if (a == "timedout" && window.HideUR == "running") { //|| a === "list is empty retry"){
                 window.HideUR = "stopped";
                 a = "timedout";
-                URComments.ShowWMEMessage(URC_USER_PROMPT[6], 5000); //"URComments: Loading UR data has timed out, retrying."
+                WMEMentor.ShowWMEMessage(URC_USER_PROMPT[6], 5000); //"WMEMentor: Loading UR data has timed out, retrying."
             }
 
             if (window.HideUR === "stopped" && a !== "timedout") {
@@ -2439,14 +2434,14 @@ function URComments_init() {
 
                 //certain events need to be launched a bit later then others
                 if (a == "moveend" || a == "zoomend") {
-                    window.buffertedtimeout = setTimeout(URComments.FilterURs(a), 2000);
+                    window.buffertedtimeout = setTimeout(WMEMentor.FilterURs(a), 2000);
                 } else {
-                    window.buffertedtimeout = setTimeout(URComments.FilterURs(a), 500);
+                    window.buffertedtimeout = setTimeout(WMEMentor.FilterURs(a), 500);
                 }
 
                 window.HideUR = "running";
                 window.BufferFillterURCommand = false;
-                window.buffertedtimeout2 = setTimeout(URComments.urcUREvent_onObjectsAdded("timedout"), 30000);
+                window.buffertedtimeout2 = setTimeout(WMEMentor.urcUREvent_onObjectsAdded("timedout"), 30000);
             } else {
                 urcToConsole("aborted: " + a + " " + window.HideUR);
             }
@@ -2454,7 +2449,7 @@ function URComments_init() {
         };
     };
 
-    URComments.FilterURs = function(a, b) {
+    WMEMentor.FilterURs = function(a, b) {
         return function() {
 
             urcToConsole("Start Filtering URs - " + a);
@@ -2500,7 +2495,7 @@ function URComments_init() {
             if (Object.keys(W.model.updateRequestSessions.objects).length === 0) {
                 window.HideUR = "stopped";
                 urcToConsole("no Ur in active sessions");
-                setTimeout(URComments.urcUREvent_onObjectsAdded("list is empty retry"), 5000);
+                setTimeout(WMEMentor.urcUREvent_onObjectsAdded("list is empty retry"), 5000);
                 return;
             }
 
@@ -2513,7 +2508,7 @@ function URComments_init() {
 
             for (var id1 in W.model.mapUpdateRequests.objects) {
                 TotalVisibleURCount = TotalVisibleURCount + 1;
-                if (URComments.onScreen(W.model.mapUpdateRequests.objects[id1])) {
+                if (WMEMentor.onScreen(W.model.mapUpdateRequests.objects[id1])) {
                     allID = allID + id1 + ",";
                     CountOfIdInList = CountOfIdInList + 1;
                 }
@@ -2521,7 +2516,7 @@ function URComments_init() {
                 if (CountOfIdInList >= 500) {
                     urcToConsole("reached 500 UR requesting list: " + DelayTimeoutCountOfIdInList);
                     //play with putting a timeout between each group requested
-                    setTimeout(URComments.FilterURs2(a, allID, TotalVisibleURCount), DelayTimeoutCountOfIdInList);
+                    setTimeout(WMEMentor.FilterURs2(a, allID, TotalVisibleURCount), DelayTimeoutCountOfIdInList);
 
                     CountOfIdInList = 0;
                     allID = "";
@@ -2531,12 +2526,12 @@ function URComments_init() {
 
             urcToConsole("reached end of UR list requesting list: " + DelayTimeoutCountOfIdInList);
             $("#URCount").html(TotalVisibleURCount);
-            setTimeout(URComments.FilterURs2(a, allID, TotalVisibleURCount), 0);
+            setTimeout(WMEMentor.FilterURs2(a, allID, TotalVisibleURCount), 0);
         };
     };
 
 
-    URComments.FilterURs2 = function(a, allID, TotalVisibleURCount) {
+    WMEMentor.FilterURs2 = function(a, allID, TotalVisibleURCount) {
         return function() {
             urcToConsole("FilterURs2 TotalVisibleURCount: " + TotalVisibleURCount);
 
@@ -2615,7 +2610,7 @@ function URComments_init() {
                                             skip = true;
                                         }
 
-                                        if (Commenttext.indexOf(LoggedInEditor) >= 0 && URCommentsReplaceTagWithEditorName.checked === true) {
+                                        if (Commenttext.indexOf(LoggedInEditor) >= 0 && WMEMentorReplaceTagWithEditorName.checked === true) {
                                             Marked = LoggedInEditor;
                                         } else if (Commenttext.indexOf("NOTE]") >= 0) {
                                             Marked = "Note";
@@ -2629,7 +2624,7 @@ function URComments_init() {
                                             Marked = "Event";
                                         }
 										
-										if(URCommentsDontShowTaggedText.checked === true && Marked !== ""){
+										if(WMEMentorDontShowTaggedText.checked === true && Marked !== ""){
 											Marked = "DontShowTaggedText";
 										}
 										
@@ -2645,7 +2640,7 @@ function URComments_init() {
                                     //urcToConsole("LastComment: " + LastComment + " " + id);
                                 }
 
-                                var lastCommentAge = URComments.uroDateToDays(lastCommentDateTime);
+                                var lastCommentAge = WMEMentor.uroDateToDays(lastCommentDateTime);
                                 //urcToConsole('Responder: reporter response for ' + id + ' = ' + reporterResponse + ', last comment on ' + lastCommentDateTime + ', comment age in days = ' + lastCommentAge + ' number of comments = ' + i);
 
                                 //urdescription = W.model.mapUpdateRequests.objects[id].attributes.description;
@@ -2659,7 +2654,7 @@ function URComments_init() {
                                         skip = true;
                                     }
 
-                                    if (urdescription.indexOf(LoggedInEditor) >= 0 && URCommentsReplaceTagWithEditorName.checked === true) {
+                                    if (urdescription.indexOf(LoggedInEditor) >= 0 && WMEMentorReplaceTagWithEditorName.checked === true) {
                                         Marked = LoggedInEditor;
 									} else if (urdescription.indexOf("NOTE]") >= 0) {
                                         Marked = "Note";
@@ -2672,17 +2667,17 @@ function URComments_init() {
                                     } else if (urdescription.indexOf("EVENT]") >= 0) {
                                         Marked = "Event";
                                     }
-									if(URCommentsDontShowTaggedText.checked === true && Marked !== ""){
+									if(WMEMentorDontShowTaggedText.checked === true && Marked !== ""){
 										Marked = "DontShowTaggedText";
 									}
 
-                                    if (URCommentsHideWithDescript.checked == true && NumberOfComments <= 0) {
+                                    if (WMEMentorHideWithDescript.checked == true && NumberOfComments <= 0) {
                                         UrcURType = UrcURType + " WithDescription";
                                         //urcToConsole("UrcURType WithDescription: " + id);
                                     }
                                     //urcToConsole("skipped2 tagged in description urid: " + id + "with comment text " + Commenttext);
                                 } else {
-                                    if (URCommentsHideWithoutDescript.checked == true && NumberOfComments <= 0) {
+                                    if (WMEMentorHideWithoutDescript.checked == true && NumberOfComments <= 0) {
                                         UrcURType = UrcURType + " WithoutDescription";
                                         //urcToConsole("UrcURType WithoutDescription: " + id);
                                     }
@@ -2698,36 +2693,36 @@ function URComments_init() {
                                 //Waze.model.mapUpdateRequests.objects[id].type == "mapUpdateRequest"
                                 if (skip === false && W.model.mapUpdateRequests.objects[id].type == "mapUpdateRequest") {
 
-                                    // && URComments.onScreen(Waze.model.mapUpdateRequests.objects[id])	
+                                    // && WMEMentor.onScreen(Waze.model.mapUpdateRequests.objects[id])	
 
                                     if (NumberOfComments > 0) {
 
                                         //4 day UR if there is only one comment, if the comment is less or equal to the editors setting, and if the last comment was not made by the driver
                                         if (NumberOfComments === 1 && ReminderDays > 0 && lastCommentAge >= ReminderDays && LastCommentorUserID > 1) {
-                                            urcToConsole("URComments2 - 4day URID: " + id);
+                                            urcToConsole("WMEMentor2 - 4day URID: " + id);
                                             //direct link to a UR https://www.waze.com/editor/?zoom=5&lat=41.586201000000024&lon=-88.060863&layers=1957&mapUpdateRequest=4048801
 
-                                            if (URCommentsHideReminderNeeded.checked == true) {
+                                            if (WMEMentorHideReminderNeeded.checked == true) {
                                                 UrcURType = UrcURType + " NeedsReminder";
                                             }
 
-                                            if (LastCommentorUserID === EditorID && URCommentsAutoSendMyReminders.checked == true && $('[data-id="' + id + '"]').hasClass('ReminderSent') === false && EditorID > 0) {
+                                            if (LastCommentorUserID === EditorID && WMEMentorAutoSendMyReminders.checked == true && $('[data-id="' + id + '"]').hasClass('ReminderSent') === false && EditorID > 0) {
                                                 urcToConsole("reminder needed UR: " + LastComment + " " + id);
 
-                                                Waze.model.updateRequestSessions.objects[id].addComment(URCommentsArray[ReminderPosistion + 1]);
+                                                Waze.model.updateRequestSessions.objects[id].addComment(WMEMentorArray[ReminderPosistion + 1]);
 
                                                 //toggleFollowConversation true or false
-                                                if ($("#URCommentURUnfollow").is(":checked")) {
-                                                    setTimeout(URComments.toggleFollowConversation(id), 0);
+                                                if ($("#WMEMentorURUnfollow").is(":checked")) {
+                                                    setTimeout(WMEMentor.toggleFollowConversation(id), 0);
                                                 }
 
-                                                URComments.ShowWMEMessage(URC_USER_PROMPT[7] + id, 2500); //"URComments: Adding reminder message to UR: "
+                                                WMEMentor.ShowWMEMessage(URC_USER_PROMPT[7] + id, 2500); //"WMEMentor: Adding reminder message to UR: "
 
                                                 //attempting to stop double reminders from being sent by adding a class that we can check for before sending the reminder
                                                 $('[data-id="' + id + '"]').addClass('ReminderSent');
 
                                                 //set to hide if hide in between states is checked
-                                                if (URCommentsHideInbetween.checked == true) {
+                                                if (WMEMentorHideInbetween.checked == true) {
                                                     UrcURType = UrcURType + " InBetweenStates";
                                                 }
 
@@ -2740,7 +2735,7 @@ function URComments_init() {
                                             //urcToConsole("close needed UR: " + LastComment + " " + id);
 
                                             //hide or show UR that need closing
-                                            if (URCommentsHideCloseNeeded.checked == true && UrcURType === "") {
+                                            if (WMEMentorHideCloseNeeded.checked == true && UrcURType === "") {
                                                 UrcURType = UrcURType + " NeedsClose";
                                             }
 
@@ -2750,7 +2745,7 @@ function URComments_init() {
                                         } else if (LastCommentorUserID > 0) {
                                             //in between states waiting for replies or time to elapse
                                             //urcToConsole("hiding ur 2: " + id);
-                                            if (URCommentsHideInbetween.checked == true) {
+                                            if (WMEMentorHideInbetween.checked == true) {
                                                 UrcURType = UrcURType + " InBetweenStates";
                                             }
                                         }
@@ -2763,7 +2758,7 @@ function URComments_init() {
                                                 CountsBGColor = "#FFCC99"; //peach
                                             }
 
-                                            if (URCommentsHideReplies.checked == true) {
+                                            if (WMEMentorHideReplies.checked == true) {
                                                 UrcURType = UrcURType + " HasUserReplies";
                                             }
 
@@ -2845,7 +2840,7 @@ function URComments_init() {
                                             'z-index': '997'
                                         });
                                     }
-                                    if (URCommentsPillEnabled.checked === true) {
+                                    if (WMEMentorPillEnabled.checked === true) {
                                         //add URC bubble	
                                         if ($('[data-id="' + id + '"] .URCounts').hasClass('URCounts') === false) {
                                             $('[data-id="' + id + '"]').append($("<div>").css("clear", "both")
@@ -2901,32 +2896,32 @@ function URComments_init() {
                                 }
 
 
-                                if (uroURFiltersActive === true && URCommentsFilterEnabled.checked === true) {
-                                    URComments.ShowWMEMessage(URC_USER_PROMPT[8], 5000); //"URComment's UR Filtering has been disabled because URO\'s UR filters are active."
-                                    $('#URCommentsFilterEnabled').prop('checked', false);
-									$(localStorage.setItem('URCommentsFilterEnabled', URCommentsFilterEnabled.checked));
+                                if (uroURFiltersActive === true && WMEMentorFilterEnabled.checked === true) {
+                                    WMEMentor.ShowWMEMessage(URC_USER_PROMPT[8], 5000); //"WMEMentor's UR Filtering has been disabled because URO\'s UR filters are active."
+                                    $('#WMEMentorFilterEnabled').prop('checked', false);
+									$(localStorage.setItem('WMEMentorFilterEnabled', WMEMentorFilterEnabled.checked));
                                 }
 
-                                if (URCommentsFilterEnabled.checked == true && uroURFiltersActive === false) {
+                                if (WMEMentorFilterEnabled.checked == true && uroURFiltersActive === false) {
                                     //check if we should hide URO stype tagged UR
-                                    if (URCommentsHideNotes.checked == true && Marked !== "") {
+                                    if (WMEMentorHideNotes.checked == true && Marked !== "") {
                                         UrcURType = UrcURType + " IsTagged";
                                     } else if (Marked !== "" && UrcURType !== "IsClosed") {
                                         UrcURType = UrcURType + " 1";
                                     }
 
                                     //check if not "my" ur
-                                    //if(URCommentsHideNotMyUR.checked == true && NumberOfComments > 0 && lastCommentAge <= CloseDays ){
-                                    if (URCommentsHideNotMyUR.checked == true && NumberOfComments > 0) {
+                                    //if(WMEMentorHideNotMyUR.checked == true && NumberOfComments > 0 && lastCommentAge <= CloseDays ){
+                                    if (WMEMentorHideNotMyUR.checked == true && NumberOfComments > 0) {
                                         //light red, peach, light yellow 
                                         //if(CountsBGColor == "#FF8B8B" || CountsBGColor == "#FFCC99" || CountsBGColor == "#FFFF99"){
                                         if (CountsBGColor == "#FFCC99" || CountsBGColor == "#FFFF99" || CountsBGColor == "#FF8B8B") {
 											UrcURType = UrcURType + " NotMyUR";
 										}
                                     }
-                                    //URCommentsShowPastClose
+                                    //WMEMentorShowPastClose
                                     //check if not "my" ur
-                                    if (URCommentsShowPastClose.checked == true && NumberOfComments > 0 && lastCommentAge > ClosePlussReminderDays) {
+                                    if (WMEMentorShowPastClose.checked == true && NumberOfComments > 0 && lastCommentAge > ClosePlussReminderDays) {
                                         //light red, peach, light yellow 
 										//if(CountsBGColor == "#FF8B8B" || CountsBGColor == "#FFCC99" || CountsBGColor == "#FFFF99"){
                                         if (CountsBGColor == "#FFCC99" || CountsBGColor == "#FFFF99" || CountsBGColor == "#FF8B8B") {
@@ -2937,7 +2932,7 @@ function URComments_init() {
                                     }
 
                                     //initial UR no comments
-                                    if (urDetail.comments.length === 0 && URCommentsHideInital.checked == true) {
+                                    if (urDetail.comments.length === 0 && WMEMentorHideInital.checked == true) {
                                         UrcURType = UrcURType + " initial";
                                     }
 
@@ -2947,7 +2942,7 @@ function URComments_init() {
                                     //show or hide URs|| NumberOfComments > 3 || NumberOfComments < 3
 
                                     if (W.model.mapUpdateRequests.objects[id].attributes.open === false) {
-                                        if (URCommentsHideClosed.checked == true) {
+                                        if (WMEMentorHideClosed.checked == true) {
                                             UrcURType = UrcURType + " IsClosed";
                                         } else {
                                             UrcURType = UrcURType + " ClosedNotHiden";
@@ -2970,7 +2965,7 @@ function URComments_init() {
                                     //urcToConsole('next ur ' + id);
 
                                     //when filtering is disable and URO filters are disabled reshow all the UR
-                                } else if (URCommentsFilterEnabled.checked == false && uroURFiltersActive === false) {
+                                } else if (WMEMentorFilterEnabled.checked == false && uroURFiltersActive === false) {
                                     //urcToConsole('UR filtering is disabled showing all ur ' + id);
                                     urStyle = 'visible';
                                     // W.map.layers[uroURLayerIdx].markers[id].icon.imageDiv.style.visibility = urStyle;
@@ -2982,12 +2977,12 @@ function URComments_init() {
                             window.HideUR = "stopped";
                             //urcToConsole('rem done filtering UR, Total UR: ' + TotalVisibleURCount);
 
-                            //URComments.ShowWMEMessage("URComments: Machete808Count: " + window.Machete808Count,600000);
+                            //WMEMentor.ShowWMEMessage("WMEMentor: Machete808Count: " + window.Machete808Count,600000);
                             //alert(CountsBGColor);					
 
                         } catch (e) {
 
-                            setTimeout(URComments.FilterURs('error retry'), 1000);
+                            setTimeout(WMEMentor.FilterURs('error retry'), 1000);
                             urcToConsole('Responder: error obtaining UR response = ' + e);
                             //window.HideUR = "stopped";
                         }
@@ -3004,21 +2999,21 @@ function URComments_init() {
         };
     };
 
-    URComments.OpenNextUR = function(message, delay) {
+    WMEMentor.OpenNextUR = function(message, delay) {
         return function() {
-            setTimeout(URComments.OpenNextUR(a, allID, TotalVisibleURCount), 0);
+            setTimeout(WMEMentor.OpenNextUR(a, allID, TotalVisibleURCount), 0);
 
         };
     };
 
-    URComments.ShowWMEMessage = function(message, delay) {
+    WMEMentor.ShowWMEMessage = function(message, delay) {
         //if ($("#URCMapNote").length <= 0){
         var dateNow = new Date();
         TrickRemove = dateNow.getTime();
 
-        //var message = "URComments UR Filtering has been disabled because URO\'s UR filters are active.";
-        //var message = "URComments: Can not find the comment box! In order for this script to work you need to have a user request open."
-        //var message = "URComments: Adding reminder message to UR: 4239896"
+        //var message = "WMEMentor UR Filtering has been disabled because URO\'s UR filters are active.";
+        //var message = "WMEMentor: Can not find the comment box! In order for this script to work you need to have a user request open."
+        //var message = "WMEMentor: Adding reminder message to UR: 4239896"
         //delay = 10000;
         var width = message.length * 10;
         var c = '<div id="URCMapNote' + TrickRemove + '" style="width: ' + width + 'px; font-size: 15px; font-weight: bold; margin-left: auto; margin-right: auto; background-color: orange;"><center><b>' + message + '</b></center></div>';
@@ -3055,7 +3050,7 @@ function URComments_init() {
 
 
     //save what comment list is selected and then build the tab
-    URComments.BoilerPlateCreatorsFunction = function() {
+    WMEMentor.BoilerPlateCreatorsFunction = function() {
 		
 		if (BoilerPlateCreators.value !== "---User's Lists---") {
 
@@ -3076,31 +3071,31 @@ function URComments_init() {
             //reload the content
             ChangeLanguage = true;
 
-            //setTimeout(URComments_bootstrap, 20);
-            URComments_bootstrap();
+            //setTimeout(WMEMentor_bootstrap, 20);
+            WMEMentor_bootstrap();
         } else {
             $("#BoilerPlateCreators").val(localStorage.getItem('BoilerPlateCreators'));
         }
     };
 
 
-    URComments.URCommentZoomOutcheck = function(Title, URStatus) {
+    WMEMentor.WMEMentorZoomOutcheck = function(Title, URStatus) {
         return function() {
-            urcToConsole("zoom out URCommentZoomOutcheck");
+            urcToConsole("zoom out WMEMentorZoomOutcheck");
 
             //this is the new place for zooming out and will still be happening while the comment is sending
             //zoom out option - if the user option is set to reload map after posting a comment reply
-            if (UrCommentZoomOutAfterComment.checked === true) {
+            if (WMEMentorZoomOutAfterComment.checked === true) {
                 urcToConsole("zoom out ZoomOutAfterComment enabled");
-                setTimeout(URComments.SetZoomCloseUR(ReturnToCurrentZoom, "LeaveOpen"), 0);
+                setTimeout(WMEMentor.SetZoomCloseUR(ReturnToCurrentZoom, "LeaveOpen"), 0);
             } else {
                 //alert("autozoomout not checked");
             }
-            setTimeout(URComments.URCommentSendBtnClicked(Title, URStatus), 20);
+            setTimeout(WMEMentor.WMEMentorendBtnClicked(Title, URStatus), 20);
         };
     };
 
-    URComments.URCommentSendBtnClicked = function(Title, URStatus) {
+    WMEMentor.WMEMentorendBtnClicked = function(Title, URStatus) {
 
         //waze is weird and after clicking send button the close button had to be refound, which takes a few seconds for the new close button to be drawn
         // so we wait 1500 milliseconds before looking for the close button
@@ -3117,29 +3112,29 @@ function URComments_init() {
                 urcToConsole("current comment = " + $(".new-comment-text").val());
                 urcToConsole("current comment = ");
                 PauseCount++;
-                setTimeout(URComments.URCommentSendBtnClicked(Title, URStatus), 20);
+                setTimeout(WMEMentor.WMEMentorendBtnClicked(Title, URStatus), 20);
             } else {
                 urcToConsole('The comment went through, jumping to CloseDelayHack2');
                 PauseCount = "1";
 
                 //check if we want to unfollow
-                if ($("#URCommentURUnfollow").is(":checked") && $("#follow-on").is(":checked")) {
+                if ($("#WMEMentorURUnfollow").is(":checked") && $("#follow-on").is(":checked")) {
                     //$('#follow-on').trigger('click');
-                    //setTimeout(URComments.URCommentSendBtnClicked(Title, URStatus), 20);
+                    //setTimeout(WMEMentor.WMEMentorendBtnClicked(Title, URStatus), 20);
                     var urID = $(".update-requests .selected").data("id");
                     //urcToConsole("toggleFollowConversation id " + urID);
                     //Waze.model.updateRequestSessions.objects[urID].toggleFollowConversation('false');
-                    setTimeout(URComments.toggleFollowConversation(urID), 500);
+                    setTimeout(WMEMentor.toggleFollowConversation(urID), 500);
                 }
                 //delay this command for uro not to freakout on refreshing uro bubble ur count
-                setTimeout(URComments.CloseDelayHack2(Title, URStatus), 100);
+                setTimeout(WMEMentor.CloseDelayHack2(Title, URStatus), 100);
 
             }
         };
     };
 
 
-    URComments.toggleFollowConversation = function(urID) {
+    WMEMentor.toggleFollowConversation = function(urID) {
         return function() {
             urcToConsole("toggleFollowConversation id " + urID);
             Waze.model.updateRequestSessions.objects[urID].toggleFollowConversation('false');
@@ -3149,7 +3144,7 @@ function URComments_init() {
 
     //this checks to see if the Waze's save button is waiting to be clicked.
     //currently unused
-    URComments.WazeSaveWaiting = function() {
+    WMEMentor.WazeSaveWaiting = function() {
         if ($(".WazeControlSave").hasClass('ItemInactive')) {
             return true;
         } else {
@@ -3157,7 +3152,7 @@ function URComments_init() {
         }
     };
 
-    URComments.CloseDelayHack2 = function(Title, URStatus) {
+    WMEMentor.CloseDelayHack2 = function(Title, URStatus) {
         return function() {
             urcToConsole("CloseDelayhack2 " + Title + " " + URStatus);
 
@@ -3171,22 +3166,22 @@ function URComments_init() {
             //when clicking save you dint need to click close
 
             //this checks to see if the Waze's save button is waiting to be clicked.
-            //URComments.WazeSaveWaiting()
+            //WMEMentor.WazeSaveWaiting()
 
             if (URStatus.toLowerCase() === "solved" || URStatus.toLowerCase() === "notidentified") {
                 urcToConsole("CloseDelayhack2 Solved or NotIdentified- Clicking Save");
                 //this clicks the waze save btn
-                if (URCommentAutoClickURStatus.checked === true && UrCommentSaveAfterComment.checked === true) {
+                if (WMEMentorAutoClickURStatus.checked === true && WMEMentoraveAfterComment.checked === true) {
                     //click save
                     $('#toolbar #edit-buttons .WazeControlSave').trigger('click');
-                } else if (UrCommentAutoCloseComment.checked) {
+                } else if (WMEMentorAutoCloseComment.checked) {
                     $(".problem-panel-navigation button.close-button").trigger('click');
                 }
 
             } else {
                 //when not saving you have to click close.
                 urcToConsole("CloseDelayhack2 since we are not saving click the close button");
-                if (UrCommentAutoCloseComment.checked) {
+                if (WMEMentorAutoCloseComment.checked) {
                     urcToConsole("CloseDelayhack2 auto close option checked");
 
 
@@ -3207,8 +3202,8 @@ function URComments_init() {
 
                     //since saving above reloads the map we need this reload only to happen when we dont click save
                     //auto reload map for non save urs
-                    //if (UrCommentAutoReloadAfterComment.checked) {
-                    //    setTimeout(URComments.AutoReloadMapOnComment, 500);
+                    //if (WMEMentorAutoReloadAfterComment.checked) {
+                    //    setTimeout(WMEMentor.AutoReloadMapOnComment, 500);
                     //}
                 }
             }
@@ -3218,19 +3213,19 @@ function URComments_init() {
 
             //this is the new place for zooming out and will still be happening while the comment is sending
             //zoom out option - if the user option is set to reload map after posting a comment reply
-            if (UrCommentZoomOutAfterComment.checked === true) {
+            if (WMEMentorZoomOutAfterComment.checked === true) {
                 urcToConsole("zoom out CloseDelayHack2");
-                setTimeout(URComments.SetZoomCloseUR(ReturnToCurrentZoom, "LeaveOpen"), 0);
+                setTimeout(WMEMentor.SetZoomCloseUR(ReturnToCurrentZoom, "LeaveOpen"), 0);
             } else {
                 //alert("autozoomout not checked");
             }
 
-            setTimeout(URComments.urcUREvent_onObjectsAdded('URCommentsReload'), 0);
+            setTimeout(WMEMentor.urcUREvent_onObjectsAdded('WMEMentorReload'), 0);
 
         };
     };
 
-    URComments.SetZoomCloseUR = function(a, b) {
+    WMEMentor.SetZoomCloseUR = function(a, b) {
         //this sets the map zoom; 0 is all the way out; 10 is all the way in but next to useless (the map and sat views disappear);
         //the closest zoom that shows the sat and map is zoom 9
         return function() {
@@ -3257,7 +3252,7 @@ function URComments_init() {
         };
     };
 
-    URComments.AutoReloadMapOnComment = function() {
+    WMEMentor.AutoReloadMapOnComment = function() {
         //waze together with URO is buggy i have to close the comment window before reloading the map or the pin ends up getting stuck on for all URO filters and it takes a page reload to fix it.
         // to get URO to rescan urs that have been commented on you have to reload the map this also causes URO to hide the ones that no longer fit the current URO filters like when using my pre-sets
 		//*[@id="layer-switcher-list"]/div/div/div
@@ -3266,33 +3261,33 @@ function URComments_init() {
         //$(".controls-container .reload-button").trigger('click');
     };
 
-    URComments.ConfirmToConsole = function() {
+    WMEMentor.ConfirmToConsole = function() {
         //over ride the default action of the standard confirm by writing confirm to a new function nconfirm, making a 'fake' confirm and then restoring confirm by copying the nconfirm back over confirm!
         nconfirm = unsafeWindow.confirm;
         unsafeWindow.confirm = function(msg) {
             //if ((I18n.translations[I18n.locale].update_requests.panel.confirm == msg) && (uroGetCBChecked('_cbDisablePendingQuestions') == true)) {
-            urcToConsole('URComment confirm redirected to console: ' + msg);
+            urcToConsole('WMEMentor confirm redirected to console: ' + msg);
             return true;
         };
     };
 
-    URComments.RestoreConfirmToConfirm = function() {
+    WMEMentor.RestoreConfirmToConfirm = function() {
         //restore the normal action of confirm by writing nconfirm to back over confirm, so the site is able to send user messages outside of my script!
         unsafeWindow.confirm = nconfirm;
     };
 
-    URComments.AutoZoomIN = function(Title, Comment, URStatus, urID, AutoSendComment) {
+    WMEMentor.AutoZoomIN = function(Title, Comment, URStatus, urID, AutoSendComment) {
         return function() {
             urcToConsole("AutoZoomIN");
-            var URCommentsUnsavedDetected = false;
-            var URCommentsUnsaveCount = $(".WazeControlSave .counter").html();
+            var WMEMentorUnsavedDetected = false;
+            var WMEMentorUnsaveCount = $(".WazeControlSave .counter").html();
 
             //detect unsaved changed if there are and the auto save option is on abort adding comments to the UR
-            if (URCommentsUnsaveCount > 0 && $("#UrCommentSaveAfterComment").is(":checked") && URStatus.toLowerCase() !== "open") {
-                URCommentsUnsavedDetected = true;
-                alert(URC_USER_PROMPT[9]); //"UrComments has detected that you have unsaved changes!\n\nWith the Auto Save option enabled and with unsaved changes you cannot send comments that would require the script to save. Please save your changes and then re-click the comment you wish to send."
+            if (WMEMentorUnsaveCount > 0 && $("#WMEMentoraveAfterComment").is(":checked") && URStatus.toLowerCase() !== "open") {
+                WMEMentorUnsavedDetected = true;
+                alert(URC_USER_PROMPT[9]); //"WMEMentor has detected that you have unsaved changes!\n\nWith the Auto Save option enabled and with unsaved changes you cannot send comments that would require the script to save. Please save your changes and then re-click the comment you wish to send."
             }
-            //URCommentsUnsavedDetected = true;
+            //WMEMentorUnsavedDetected = true;
 
             //get urid for manually clicked comments
             if (urID === 0 || urID === "" || urID === undefined) {
@@ -3300,16 +3295,16 @@ function URComments_init() {
             }
 
             //check to see if the auto zoom in option in enabled if it is start the zooming in process
-            urcToConsole("AutoZoomIN checking if we should zoom in based of if the Title is the same as the reminder title: " + Title + " pointer title: " + URCommentsArray[ReminderPosistion] + " urID: " + urID);
+            urcToConsole("AutoZoomIN checking if we should zoom in based of if the Title is the same as the reminder title: " + Title + " pointer title: " + WMEMentorArray[ReminderPosistion] + " urID: " + urID);
             //having OneOrTheOTher first is a hack to make the logic work
             var OneOrTheOTher = "no";
 
-            if (UrCommentNewZoomIn.checked === true && Title !== URCommentsArray[ReminderPosistion] && Title !== URCommentsArray[CloseNotIdentifiedPosistion] && AutoSendComment !== "AutoSendComment") {
+            if (WMEMentorNewZoomIn.checked === true && Title !== WMEMentorArray[ReminderPosistion] && Title !== WMEMentorArray[CloseNotIdentifiedPosistion] && AutoSendComment !== "AutoSendComment") {
                 OneOrTheOTher = "yes";
             }
 
             //alert(OneOrTheOTher);
-            if (OneOrTheOTher === "yes" && URCommentsUnsavedDetected === false) {
+            if (OneOrTheOTher === "yes" && WMEMentorUnsavedDetected === false) {
 
                 urcToConsole("AutoZoomIN zooming to location");
 
@@ -3318,43 +3313,43 @@ function URComments_init() {
 
                 //do not zoom back out if we are already zoomed in and just happen to be re-clicking on a UR.
                 //or we have the map set good for a 4-day reminder
-                var WazeCurrentZoom = URComments.GetWazeMapZoomLevel();
+                var WazeCurrentZoom = WMEMentor.GetWazeMapZoomLevel();
 
                 if (WazeCurrentZoom < zoom) {
-                    URComments.gotoURById(urID, 5);
+                    WMEMentor.gotoURById(urID, 5);
                 }
 
-                //setTimeout(URComments.AutoZoomIN2(Title, Comment, URStatus), 2500);
-                setTimeout(URComments.PostURComment(Title, Comment, URStatus, AutoSendComment, urID), 1);
+                //setTimeout(WMEMentor.AutoZoomIN2(Title, Comment, URStatus), 2500);
+                setTimeout(WMEMentor.PostWMEMentor(Title, Comment, URStatus, AutoSendComment, urID), 1);
 
-            } else if (URCommentsUnsavedDetected === false) {
+            } else if (WMEMentorUnsavedDetected === false) {
 
-                //auto zoom in is disabled jump to postURComment
+                //auto zoom in is disabled jump to postWMEMentor
                 //alert("else");
-                urcToConsole("AutoZoomIN disabled to PostURComment id - " + urID);
-                //we have to use set timeout here because we need the  return function() in PostURComment
+                urcToConsole("AutoZoomIN disabled to PostWMEMentor id - " + urID);
+                //we have to use set timeout here because we need the  return function() in PostWMEMentor
                 //for when we are zooming in and out for the reminder
-                //since we are not zooming here jump rigth to PostURComment
-                setTimeout(URComments.PostURComment(Title, Comment, URStatus, AutoSendComment, urID), 1);
+                //since we are not zooming here jump rigth to PostWMEMentor
+                setTimeout(WMEMentor.PostWMEMentor(Title, Comment, URStatus, AutoSendComment, urID), 1);
             }
 
         };
     };
 
 	
-	URComments.CrossHairsClicked = function(urID, zoom) {
+	WMEMentor.CrossHairsClicked = function(urID, zoom) {
 		return function() {
-			setTimeout(URComments.gotoURById(urID, 5), 500);
+			setTimeout(WMEMentor.gotoURById(urID, 5), 500);
 		};
 	};
 	
 		
-    URComments.gotoURById = function(urID, zoom) {
+    WMEMentor.gotoURById = function(urID, zoom) {
         //alert(urID);
         //$('span[id="WME_AutoUR_Count"]').html((WMEAutoUR.Auto.index+1)+"/"+WMEAutoUR.Auto.UR_len);
 
         //save zoom so we can return this the current zoom level
-        ReturnToCurrentZoom = URComments.GetWazeMapZoomLevel();
+        ReturnToCurrentZoom = WMEMentor.GetWazeMapZoomLevel();
 
         var x = Waze.model.mapUpdateRequests.objects[urID].attributes.geometry.x;
         var y = Waze.model.mapUpdateRequests.objects[urID].attributes.geometry.y;
@@ -3365,43 +3360,43 @@ function URComments_init() {
         return;
     };
 
-    URComments.GetWazeMapZoomLevel = function(Title, Comment, URStatus) {
+    WMEMentor.GetWazeMapZoomLevel = function(Title, Comment, URStatus) {
         zoom = W.map.mapState.mapLocation.zoom;
         urcToConsole("Current Zoom: " + zoom);
         return zoom;
     };
 
 
-    URComments.WaitForURtoOpen = function(Title, Comment, URStatus, urID, AutoSendComment) {
+    WMEMentor.WaitForURtoOpen = function(Title, Comment, URStatus, urID, AutoSendComment) {
         return function() {
             if ($(".new-comment-text")[0]) {
-                setTimeout(URComments.AutoZoomIN(Title, Comment, URStatus, urID, AutoSendComment), 500);
+                setTimeout(WMEMentor.AutoZoomIN(Title, Comment, URStatus, urID, AutoSendComment), 500);
             } else {
-                setTimeout(URComments.WaitForURtoOpen(Title, Comment, URStatus, urID, AutoSendComment), 200);
+                setTimeout(WMEMentor.WaitForURtoOpen(Title, Comment, URStatus, urID, AutoSendComment), 200);
             }
         };
     };
 
 
-    URComments.PostURComment = function(Title, Comment, URStatus, AutoSendComment, urID) {
+    WMEMentor.PostWMEMentor = function(Title, Comment, URStatus, AutoSendComment, urID) {
         // the user clicked on a comment link
         return function() {
             //Swap out special text
-            Comment = URComments.StringSwap(Comment);
+            Comment = WMEMentor.StringSwap(Comment);
             urcToConsole("attaching to send button " + Title + " - " + Comment + " - " + URStatus);
 
-            //add event listener that runs most of the options = URCommentZoomOutcheck
-            $('.new-comment-form .new-comment-text + .btn-default').click(URComments.URCommentZoomOutcheck(Title, URStatus));
+            //add event listener that runs most of the options = WMEMentorZoomOutcheck
+            $('.new-comment-form .new-comment-text + .btn-default').click(WMEMentor.WMEMentorZoomOutcheck(Title, URStatus));
 
             //check if the comment text area is present if not alert the user to open a UR
             if ($(".new-comment-text")[0]) {
                 urcToConsole('found comment box ' + Title + ' - ' + Comment);
                 $(".new-comment-text").val(Comment);
                 //click the Ur status
-                setTimeout(URComments.CheckIfClickStatus(URStatus, AutoSendComment), 1);
+                setTimeout(WMEMentor.CheckIfClickStatus(URStatus, AutoSendComment), 1);
             } else {
                 //we were unable to find an open UR
-                URComments.ShowWMEMessage(URC_USER_PROMPT[10], 5000); //"URComments: Can not find the comment box! In order for this script to work you need to have a user request open."
+                WMEMentor.ShowWMEMessage(URC_USER_PROMPT[10], 5000); //"WMEMentor: Can not find the comment box! In order for this script to work you need to have a user request open."
             }
         };
     };
@@ -3414,13 +3409,13 @@ function URComments_init() {
         return link.substr(pos, len);
     };
 
-    URComments.CheckIfClickStatus = function(URStatus, AutoSendComment) {
+    WMEMentor.CheckIfClickStatus = function(URStatus, AutoSendComment) {
         return function() {
             urcToConsole("checking ur status function: " + URStatus + " " + AutoSendComment);
 
-            if (URCommentAutoClickURStatus.checked === true) {
+            if (WMEMentorAutoClickURStatus.checked === true) {
                 //bypass the confirm function so other site messages do not come up!
-                URComments.ConfirmToConsole();
+                WMEMentor.ConfirmToConsole();
 
                 //click the ur status options (Not identified solved, open)
                 if ($("#state-open").length !== 0) {
@@ -3438,22 +3433,22 @@ function URComments_init() {
                 }
 
                 //restores confirm function so other site messages come up!
-                URComments.RestoreConfirmToConfirm();
+                WMEMentor.RestoreConfirmToConfirm();
                 //wait for the status to change
             }
 
             if (AutoSendComment === "AutoSendComment") {
-                setTimeout(URComments.URVerfiyStatusSet(URStatus, AutoSendComment), 1);
+                setTimeout(WMEMentor.URVerfiyStatusSet(URStatus, AutoSendComment), 1);
             }
         };
     };
 
-    URComments.URVerfiyStatusSet = function(URStatus, AutoSendComment) {
+    WMEMentor.URVerfiyStatusSet = function(URStatus, AutoSendComment) {
         return function() {
             urcToConsole("URVerfiyStatusSet function: " + URStatus + " " + AutoSendComment);
             var URStatusOk = true;
 
-            if (URCommentAutoClickURStatus.checked === true) {
+            if (WMEMentorAutoClickURStatus.checked === true) {
 
                 if (URStatus.toLowerCase() == "notidentified") {
                     //click Not identified 
@@ -3476,16 +3471,16 @@ function URComments_init() {
 
             if (URStatusOk == true) {
 
-                setTimeout(URComments.AutoClickSend(URStatus, AutoSendComment), 1);
+                setTimeout(WMEMentor.AutoClickSend(URStatus, AutoSendComment), 1);
             } else {
                 urcToConsole("UR Status has yet to change waiting 250ms");
-                setTimeout(URComments.URVerfiyStatusSet(URStatus, AutoSendComment), 150);
+                setTimeout(WMEMentor.URVerfiyStatusSet(URStatus, AutoSendComment), 150);
             }
 
         };
     };
 
-    URComments.AutoClickSend = function(URStatus, AutoSendComment) {
+    WMEMentor.AutoClickSend = function(URStatus, AutoSendComment) {
         return function() {
             urcToConsole("checking if we are auto clicking the send button");
             if (AutoSendComment === "AutoSendComment") {
@@ -3501,8 +3496,8 @@ function URComments_init() {
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-    URComments.startcode = function() {
-        // Check if WME is loaded, if not, waiting a moment and checks again. if yes init URComments
+    WMEMentor.startcode = function() {
+        // Check if WME is loaded, if not, waiting a moment and checks again. if yes init WMEMentor
         //try {
 		//look for the me tab instead if the buggy chat room!    
 
@@ -3510,11 +3505,11 @@ function URComments_init() {
 
 			if($("#user-details").length){
 				urcToConsole("Found user-details window");
-				URComments.init();
+				WMEMentor.init();
 			} else {
 				//console.log("not def");
 				urcToConsole("Could not find user-details window");
-				setTimeout(URComments.startcode, 2000);
+				setTimeout(WMEMentor.startcode, 2000);
 			}
 
 
@@ -3523,19 +3518,19 @@ function URComments_init() {
             urcToConsole("Found user-details window");
             if (typeof element !== "undefined" && element.value !== '') {
                 //urcToConsole("Test2");
-                URComments.init();
+                WMEMentor.init();
                 //urcToConsole("Test3");
             } else {
-                setTimeout(URComments.startcode, 2000);
+                setTimeout(WMEMentor.startcode, 2000);
             }*/
 			
 			
         /* catch (err) {
             urcToConsole(err);
             if (err === "TypeError: element is null" || err === "TypeError: element is null") {
-                setTimeout(URComments.startcode, 2000);
+                setTimeout(WMEMentor.startcode, 2000);
             }
-            setTimeout(URComments.startcode, 2000);
+            setTimeout(WMEMentor.startcode, 2000);
 			*/
        // }
     };
@@ -3548,7 +3543,7 @@ function URComments_init() {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //URO+ these are the tags of all of the items URO uses to filter URs
-    URComments.UROCheckboxesArray = ["_cbFilterWazeAuto",
+    WMEMentor.UROCheckboxesArray = ["_cbFilterWazeAuto",
                                      "_cbFilterIncorrectTurn",				//
                                      "_cbFilterIncorrectAddress",			//
                                      "_cbFilterIncorrectRoute",				//
@@ -3598,87 +3593,87 @@ function URComments_init() {
                                      "_cbURResolverIDFilter"				//Not resolved by user
                                     ];
 
-    URComments.UROPresetHighlight = function(a) {
+    WMEMentor.UROPresetHighlight = function(a) {
         if (a === "URONewNoDescription") {
             $('#URONewNoDescription').css('background-color', '#FFFF66');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
 
         if (a === "UroShowNew") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '#FFFF66');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '#FFFF66');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
         if (a === "URO4DayFollowUp") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '#FFFF66');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '#FFFF66');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
         if (a === "URO7Day") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '#FFFF66');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '#FFFF66');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
         if (a === "URO8Day") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '#FFFF66');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '#FFFF66');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
         if (a === "URO10Day") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '#FFFF66');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '#FFFF66');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
         if (a === "URO24Hr") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '#FFFF66');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '#FFFF66');
         }
         if (a === "UROclearUROFiltrs") {
             $('#URONewNoDescription').css('background-color', '');
-            $('#URCommentURONEW').css('background-color', '');
-            $('#URCommentURO4DayFollowUp').css('background-color', '');
-            $('#URCommentURO7Day').css('background-color', '');
-            $('#URCommentURO8Day').css('background-color', '');
-            $('#URCommentURO10Day').css('background-color', '');
-            $('#URCommentURO24Hr').css('background-color', '');
+            $('#WMEMentorURONEW').css('background-color', '');
+            $('#WMEMentorURO4DayFollowUp').css('background-color', '');
+            $('#WMEMentorURO7Day').css('background-color', '');
+            $('#WMEMentorURO8Day').css('background-color', '');
+            $('#WMEMentorURO10Day').css('background-color', '');
+            $('#WMEMentorURO24Hr').css('background-color', '');
         }
 
     };
 
-    URComments.UROClearClicked = function(a) {
+    WMEMentor.UROClearClicked = function(a) {
         return function() {
 			
-            URComments.UROPresetHighlight(a);
+            WMEMentor.UROPresetHighlight(a);
 
             //save the current preset so we can reaply the highlighting on startup
             localStorage.setItem('UROCurrentPeset', a);
@@ -3689,19 +3684,19 @@ function URComments_init() {
                 //this is the array used to store the URO id tags
 
                 //go over the array and clear all of the URO+ check boxes
-                for (var URComments_URO_Index = 0; URComments_URO_Index < URComments.UROCheckboxesArray.length; URComments_URO_Index = URComments_URO_Index + 1) {
+                for (var WMEMentor_URO_Index = 0; WMEMentor_URO_Index < WMEMentor.UROCheckboxesArray.length; WMEMentor_URO_Index = WMEMentor_URO_Index + 1) {
 
-                    if ($('#' + URComments.UROCheckboxesArray[URComments_URO_Index]).length <= 0) {
-                        alert("there was an error finding URO's tag " + URComments.UROCheckboxesArray[URComments_URO_Index]);
+                    if ($('#' + WMEMentor.UROCheckboxesArray[WMEMentor_URO_Index]).length <= 0) {
+                        alert("there was an error finding URO's tag " + WMEMentor.UROCheckboxesArray[WMEMentor_URO_Index]);
                         return false;
                     }
 
-                    if ($('#' + URComments.UROCheckboxesArray[URComments_URO_Index]).is(":checked")) {
+                    if ($('#' + WMEMentor.UROCheckboxesArray[WMEMentor_URO_Index]).is(":checked")) {
                         //clicks the checkbox by if the checkbox is checked
-                        $('#' + URComments.UROCheckboxesArray[URComments_URO_Index]).trigger('click');
+                        $('#' + WMEMentor.UROCheckboxesArray[WMEMentor_URO_Index]).trigger('click');
                     } else {
                         //click check box if checkbox in unchecked
-                        //$(document.getElementById(URComments.UROCheckboxesArray[ URComments_URO_Index ])).trigger('click');
+                        //$(document.getElementById(WMEMentor.UROCheckboxesArray[ WMEMentor_URO_Index ])).trigger('click');
                     }
                 }
 
@@ -3816,7 +3811,7 @@ function URComments_init() {
     };
 	*/
 
-    URComments.startcode();
+    WMEMentor.startcode();
 }
-//URComments_bootstrap();
-setTimeout(URComments_bootstrap, 3000);
+//WMEMentor_bootstrap();
+setTimeout(WMEMentor_bootstrap, 3000);
