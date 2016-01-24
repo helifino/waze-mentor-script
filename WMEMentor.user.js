@@ -7,7 +7,7 @@
 // @version        0.0.1
 // @match          https://editor-beta.waze.com/*editor/*
 // @match          https://www.waze.com/*editor/*
-// @author         Alex Swavely (helifino206) '2015
+// @author         Alex Swavely (helifino206) '2016
 // @license        MIT/BSD/X11
 // @require https://greasyfork.org/scripts/16071-wme-keyboard-shortcuts/code/WME%20Keyboard%20Shortcuts.js
 // ==/UserScript==
